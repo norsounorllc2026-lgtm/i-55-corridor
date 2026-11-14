@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>I-55 Corridor</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Travel Interstate 55 from Chicago to LaPlace and meet the newsrooms within five miles of the road.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Overpass+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one full-screen night map; the road runs through the middle, a mile-post card and a route strip ride on top, outlet details slide in as a panel. */
+:root {
+  --asphalt: #0f171e;
+  --land: #16212a;
+  --land-corridor: #1c2c38;
+  --land-cross: #22394a;
+  --line: #2a3b48;
+  --state-line: #4a6273;
+  --paint: #edf1f4;
+  --muted: #8d9daa;
+  --sign: #0e6b46;
+  --sign-edge: #e9f2ec;
+  --signal: #f3a83a;
+  --signal-soft: rgba(243, 168, 58, .18);
+  --local: #63c6c0;
+  --panel: #131d25;
+  --panel-2: #1a2630;
+  --font-display: "Overpass", "Highway Gothic", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Overpass", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Overpass Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--asphalt); color: var(--paint);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.45;
+  overflow: hidden; -webkit-tap-highlight-color: transparent;
+}
+button { font: inherit; color: inherit; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+
+#app { position: relative; width: 100%; height: 100%; overflow: hidden; }
+#map { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+#map.dragging { cursor: grabbing; }
+
+/* map layers */
+.state { fill: var(--land); stroke: var(--state-line); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.county { fill: none; stroke: var(--line); stroke-width: .6; vector-effect: non-scaling-stroke; }
+.county.near { fill: var(--land-corridor); }
+.county.crossed { fill: var(--land-cross); }
+.county.near, .county.crossed { cursor: pointer; }
+.county.focus { fill: #27455a; }
+.county.hot { fill: #2a4a5f; }
+.county.selected { fill: #2e5268; }
+.outline { fill: none; vector-effect: non-scaling-stroke; }
+.outline.focus { stroke: var(--signal); stroke-width: 1.6; }
+.outline.hot { stroke: var(--paint); stroke-width: 1.6; }
+.outline.selected { stroke: var(--signal); stroke-width: 2.8; }
+.buffer { fill: rgba(237, 241, 244, .035); stroke: rgba(237, 241, 244, .22); stroke-width: 1; stroke-dasharray: 3 5; vector-effect: non-scaling-stroke; }
+.road-casing { fill: none; stroke: #070b0f; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.road { fill: none; stroke: #3b4855; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.road-paint { fill: none; stroke: var(--signal); stroke-width: 1.6; stroke-dasharray: 7 9; vector-effect: non-scaling-stroke; animation: drive 1.6s linear infinite; }
+@keyframes drive { to { stroke-dashoffset: -32; } }
+
+.state-name { font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: .32em; text-transform: uppercase; fill: rgba(237, 241, 244, .16); pointer-events: none; }
+
+/* towns */
+.town { pointer-events: none; }
+.town .dot { fill: var(--paint); stroke: var(--asphalt); stroke-width: 1.5; }
+.town.t2 .dot { fill: var(--muted); }
+.town .sign-bg { fill: var(--sign); stroke: var(--sign-edge); stroke-width: 1; }
+.town .sign-text { font-family: var(--font-display); font-weight: 600; font-size: 12px; fill: #fff; }
+.town.t2 .label { font-family: var(--font-body); font-size: 11px; fill: var(--muted); paint-order: stroke; stroke: var(--asphalt); stroke-width: 3px; stroke-linejoin: round; }
+.town.hot .sign-bg { stroke: var(--signal); stroke-width: 2; }
+.town.focus .sign-bg { fill: #12804f; stroke: var(--signal); stroke-width: 2; }
+.town.t2.hot .label { fill: var(--paint); }
+.town.t2.hot .dot { fill: var(--signal); }
+
+/* stations */
+.station { cursor: pointer; }
+.station .ring { fill: none; stroke: var(--signal); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: airwave 2.4s ease-out infinite; opacity: 0; }
+.station .ring:nth-of-type(2) { animation-delay: .8s; }
+.station .ring:nth-of-type(3) { animation-delay: 1.6s; }
+.station.local .ring { stroke: var(--local); }
+@keyframes airwave { 0% { transform: scale(.3); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
+.station .base { fill: var(--asphalt); stroke: var(--signal); stroke-width: 1.5; }
+.station.local .base { stroke: var(--local); }
+.station .tower { fill: none; stroke: var(--paint); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.station .tip { fill: var(--signal); }
+.station.local .tip { fill: var(--local); }
+.station .call-bg { fill: var(--signal); }
+.station.local .call-bg { fill: var(--local); }
+.station .call { font-family: var(--font-display); font-weight: 800; font-size: 11px; letter-spacing: .04em; fill: #10171d; }
+.station:hover .base, .station.active .base { fill: #24323d; stroke-width: 2.5; }
+.cluster { cursor: pointer; }
+.cluster .c-ring { fill: none; stroke: var(--signal); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: airwave 2.4s ease-out infinite; opacity: 0; }
+.cluster .c-ring:nth-of-type(2) { animation-delay: 1.2s; }
+.cluster .c-base { fill: var(--signal); stroke: var(--asphalt); stroke-width: 3; }
+.cluster .c-count { font-family: var(--font-display); font-weight: 800; font-size: 15px; fill: #10171d; }
+.cluster .c-label { font-family: var(--font-display); font-weight: 600; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; fill: var(--paint); paint-order: stroke; stroke: var(--asphalt); stroke-width: 3px; }
+.cluster:hover .c-base { fill: #ffc266; }
+.feat circle { fill: var(--sign); stroke: var(--sign-edge); stroke-width: 1.4; }
+.feat path, .feat .f-head { fill: #fff; stroke: none; }
+.feat .f-count { font-family: var(--font-display); font-weight: 800; font-size: 9px; fill: #fff; }
+.legend-feat { display: inline-flex; align-items: center; gap: 4px; }
+.legend-feat i { width: 12px; height: 12px; border-radius: 50%; background: var(--sign); border: 1.4px solid var(--sign-edge); display: inline-block; }
+.o-feat { color: #6fe0a6; font-weight: 600; }
+@media (prefers-reduced-motion: reduce) {
+  .station .ring { animation: none; opacity: .45; transform: scale(1); }
+  .station .ring:nth-of-type(n+2) { display: none; }
+  .road-paint { animation: none; }
+  .cluster .c-ring { animation: none; opacity: .4; }
+}
+
+/* top bar */
+.topbar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 5;
+  display: flex; align-items: center; gap: 12px;
+  padding-top: calc(12px + env(safe-area-inset-top, 0px));
+  padding-bottom: 12px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  background: linear-gradient(to bottom, rgba(15, 23, 30, .96) 40%, rgba(15, 23, 30, 0));
+  pointer-events: none;
+}
+.topbar > * { pointer-events: auto; }
+.home {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
+  padding: 9px 14px; border-radius: 4px; background: var(--paint); color: var(--asphalt);
+  white-space: nowrap;
+}
+.home::before { content: "←"; font-weight: 600; }
+.home:hover { background: var(--signal); }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; margin-left: auto; }
+.brand h1 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(18px, 3.4vw, 26px); letter-spacing: .02em; line-height: 1; white-space: nowrap; }
+.shield { width: 34px; height: 36px; flex: none; }
+
+/* mile post */
+.milepost {
+  position: absolute; z-index: 4;
+  left: max(16px, env(safe-area-inset-left, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  width: min(320px, calc(100% - 92px));
+  background: rgba(19, 29, 37, .94); border: 1px solid var(--line); border-radius: 6px;
+  padding: 12px 14px; display: grid; gap: 8px;
+  backdrop-filter: blur(6px);
+}
+.mp-row { display: flex; align-items: center; gap: 12px; }
+.mp-marker {
+  flex: none; width: 52px; text-align: center; border-radius: 4px; background: var(--sign); border: 1.5px solid var(--sign-edge);
+  padding: 4px 0 3px; font-family: var(--font-display); line-height: 1;
+}
+.mp-marker small { display: block; font-size: 9px; letter-spacing: .14em; font-weight: 600; }
+.mp-marker b { display: block; font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; margin-top: 2px; }
+.mp-where { min-width: 0; }
+.mp-state { font-family: var(--font-display); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
+.mp-town { font-family: var(--font-display); font-weight: 800; font-size: 20px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mp-county { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mp-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mp-nav button {
+  border: 1px solid var(--line); background: var(--panel-2); border-radius: 4px; padding: 8px 6px; cursor: pointer;
+  font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+}
+.mp-nav button:hover { border-color: var(--signal); color: var(--signal); }
+.mp-hint { font-size: 12px; color: var(--muted); }
+
+/* route strip */
+.strip {
+  position: absolute; z-index: 4;
+  right: max(16px, env(safe-area-inset-right, 0px));
+  top: calc(76px + env(safe-area-inset-top, 0px));
+  bottom: calc(132px + env(safe-area-inset-bottom, 0px));
+  width: 44px; display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.strip-cap { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.strip-track { position: relative; flex: 1; width: 100%; cursor: pointer; touch-action: none; }
+.strip-seg { position: absolute; left: 50%; width: 6px; transform: translateX(-50%); border-radius: 2px; }
+.strip-seg-label { position: absolute; left: 0; width: 100%; text-align: center; font-family: var(--font-display); font-size: 10px; font-weight: 800; letter-spacing: .06em; color: var(--paint); transform: translateY(-50%); text-shadow: 0 0 4px var(--asphalt), 0 0 4px var(--asphalt); pointer-events: none; }
+.strip-tick { position: absolute; left: calc(50% + 6px); width: 5px; height: 2px; background: var(--signal); border-radius: 1px; }
+.strip-tick.local { background: var(--local); }
+.strip-car { position: absolute; left: 50%; width: 22px; height: 22px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 4px var(--signal-soft); pointer-events: none; }
+.strip-car::after { content: ""; position: absolute; inset: 7px; border-radius: 50%; background: var(--asphalt); }
+
+/* zoom */
+.zoom {
+  position: absolute; z-index: 4; display: grid; gap: 6px;
+  right: max(16px, env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+}
+.zoom button { width: 44px; height: 44px; border-radius: 4px; border: 1px solid var(--line); background: rgba(19, 29, 37, .94); font-size: 22px; line-height: 1; cursor: pointer; }
+.zoom button:hover { border-color: var(--signal); color: var(--signal); }
+
+/* outlet panel */
+/* details drop down beneath the tapped tower, which sits centered in the strip of map above */
+.panel {
+  position: absolute; z-index: 8; background: var(--panel);
+  top: var(--sheet-top); bottom: 0; left: 50%; width: min(960px, 100%);
+  border: 1px solid var(--line); border-bottom: 0; border-radius: 12px 12px 0 0;
+  display: flex; flex-direction: column;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, .5);
+  transform: translate(-50%, 0); opacity: 1; visibility: visible;
+  transition: transform .3s ease, opacity .25s ease, visibility 0s linear 0s;
+}
+.panel.closed { transform: translate(-50%, -18px); opacity: 0; visibility: hidden; pointer-events: none; transition: transform .25s ease, opacity .2s ease, visibility 0s linear .25s; }
+.panel::before { content: ""; position: absolute; top: -9px; left: 50%; width: 16px; height: 16px; background: var(--panel); border-left: 1px solid var(--line); border-top: 1px solid var(--line); transform: translateX(-50%) rotate(45deg); }
+.panel-body .person-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); gap: 12px; }
+.panel-head {
+  padding-top: calc(18px + env(safe-area-inset-top, 0px)); padding-bottom: 16px;
+  padding-left: 20px; padding-right: max(20px, env(safe-area-inset-right, 0px));
+  border-bottom: 1px solid var(--line); display: grid; gap: 6px; position: relative;
+}
+.panel-close {
+  position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px));
+  width: 40px; height: 40px; border-radius: 4px; border: 1px solid var(--line); background: var(--panel-2); cursor: pointer; font-size: 20px;
+}
+.eyebrow { font-family: var(--font-display); font-weight: 600; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--signal); padding-right: 48px; }
+.panel.local-outlet .eyebrow { color: var(--local); }
+.panel h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 1.1; text-wrap: balance; padding-right: 48px; }
+.addr { font-size: 13px; color: var(--muted); }
+.addr .pin-note { display: block; font-size: 12px; color: var(--signal); }
+.links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.links a {
+  text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 11px; border-radius: 999px;
+  background: var(--panel-2); border: 1px solid var(--line);
+}
+.links a:hover { border-color: var(--signal); color: var(--signal); }
+.links a.primary { background: var(--signal); color: #10171d; border-color: var(--signal); }
+.panel-body { overflow-y: auto; flex: 1; padding-block: 18px 28px; padding-left: 20px; padding-right: max(20px, env(safe-area-inset-right, 0px)); display: grid; gap: 22px; align-content: start; }
+.section-title { font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 10px; color: var(--muted); }
+.person { border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); padding: 14px; display: grid; gap: 12px; }
+.person-head { display: flex; gap: 12px; align-items: center; }
+.avatar { width: 52px; height: 52px; border-radius: 50%; flex: none; background: var(--sign); display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: 18px; overflow: hidden; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.person-name { font-family: var(--font-display); font-weight: 800; font-size: 18px; line-height: 1.15; }
+.person-role { font-size: 13px; color: var(--muted); }
+.videos { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+.video { display: grid; gap: 6px; min-width: 0; }
+.video-frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 4px; overflow: hidden; background: #0a1016; border: 1px solid var(--line); }
+.video-frame button { all: unset; cursor: pointer; position: absolute; inset: 0; display: block; }
+.video-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.video-frame .play { position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; transform: translate(-50%, -50%); border-radius: 50%; background: rgba(15, 23, 30, .82); border: 2px solid var(--paint); }
+.video-frame .play::after { content: ""; position: absolute; left: 15px; top: 11px; border-style: solid; border-width: 7px 0 7px 12px; border-color: transparent transparent transparent var(--paint); }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-title { font-size: 13px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.video-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.video-meta a { color: var(--muted); }
+.empty { border: 1px dashed var(--line); border-radius: 6px; padding: 14px; font-size: 13px; color: var(--muted); }
+.empty code { font-family: var(--font-mono); color: var(--paint); font-size: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { border: 1.5px solid var(--sign-edge); background: var(--sign); color: #fff; border-radius: 4px; padding: 3px 9px; font-family: var(--font-display); font-weight: 600; font-size: 13px; }
+.chips.t2 span { background: transparent; border-color: var(--line); color: var(--paint); font-weight: 400; }
+.county-link { border: 1px solid var(--line); background: var(--panel-2); border-radius: 4px; padding: 6px 11px; cursor: pointer; font-family: var(--font-display); font-weight: 600; font-size: 13px; justify-self: start; }
+.county-link:hover { border-color: var(--signal); color: var(--signal); }
+.outlet-list { display: grid; gap: 6px; }
+.outlet-row { display: flex; align-items: center; gap: 12px; text-align: left; width: 100%; border: 1px solid var(--line); background: var(--panel-2); border-radius: 6px; padding: 10px 12px; cursor: pointer; }
+.outlet-row:hover { border-color: var(--signal); }
+.outlet-row .badge { flex: none; min-width: 64px; text-align: center; border-radius: 3px; padding: 3px 6px; background: var(--signal); color: #10171d; font-family: var(--font-display); font-weight: 800; font-size: 11px; }
+.outlet-row.local .badge { background: var(--local); }
+.outlet-row .o-name { font-weight: 600; line-height: 1.2; }
+.outlet-row .o-kind { font-size: 12px; color: var(--muted); }
+.outlet-row > div { min-width: 0; }
+.fineprint { font-size: 12px; color: var(--muted); }
+
+.loading { position: absolute; inset: 0; display: grid; place-items: center; z-index: 9; font-family: var(--font-display); font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); background: var(--asphalt); }
+
+@media (max-width: 640px) {
+  .brand h1 { font-size: 18px; }
+  .shield { width: 28px; height: 30px; }
+  .home { font-size: 11px; padding: 8px 10px; }
+  .milepost { width: calc(100% - 92px - max(16px, env(safe-area-inset-left, 0px))); padding: 10px 12px; }
+  .mp-town { font-size: 17px; }
+  .mp-hint { display: none; }
+  .panel-head { padding-top: 18px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .panel-body { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
+  .panel h2 { font-size: 22px; }
+}
+@media (max-width: 380px) { .brand h1 { display: none; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <svg id="map" role="application" aria-label="Map of Interstate 55. Scroll or swipe to travel north and south.">
+    <g id="world">
+      <g id="g-states"></g>
+      <g id="g-counties"></g>
+      <g id="g-county-outline" style="pointer-events:none"></g>
+      <path id="buffer" class="buffer"></path>
+      <path id="road-casing" class="road-casing"></path>
+      <path id="road" class="road"></path>
+      <path id="road-paint" class="road-paint"></path>
+    </g>
+    <g id="g-statenames"></g>
+    <g id="g-towns"></g>
+    <g id="g-stations"></g>
+    <g id="g-clusters"></g>
+  </svg>
+
+  <header class="topbar">
+    <a class="home" id="home" href="#" target="_top">American Griot One</a>
+    <div class="brand">
+      <svg class="shield" viewBox="0 0 34 36" aria-hidden="true">
+        <path d="M2 4 Q17 -1 32 4 Q35 20 17 35 Q-1 20 2 4Z" fill="#1b4b8f" stroke="#fff" stroke-width="1.6"/>
+        <path d="M2.6 4.3 Q17 -.4 31.4 4.3 L31.6 10 L2.4 10Z" fill="#c8102e"/>
+        <text x="17" y="27" text-anchor="middle" font-family="Overpass, Arial Narrow, sans-serif" font-weight="800" font-size="15" fill="#fff">55</text>
+      </svg>
+      <h1>I-55 Corridor</h1>
+    </div>
+  </header>
+
+  <aside class="milepost" aria-live="polite">
+    <div class="mp-row">
+      <div class="mp-marker"><small>MILE</small><b id="mp-mile">0</b></div>
+      <div class="mp-where">
+        <div class="mp-state" id="mp-state">—</div>
+        <div class="mp-town" id="mp-town">—</div>
+        <div class="mp-county" id="mp-county">—</div>
+      </div>
+    </div>
+    <div class="mp-nav">
+      <button id="go-north" type="button" aria-label="Travel north">▲ North</button>
+      <button id="go-south" type="button" aria-label="Travel south">▼ South</button>
+    </div>
+    <div class="mp-hint">Scroll to travel I-55, drag to look around. Tap a tower to open a newsroom, or a county to see what's in it. <span class="legend-feat"><i></i> marks featured reporters.</span></div>
+  </aside>
+
+  <nav class="strip" aria-label="Jump along I-55">
+    <div class="strip-cap">N</div>
+    <div class="strip-track" id="strip-track"></div>
+    <div class="strip-cap">S</div>
+  </nav>
+
+  <div class="zoom">
+    <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+    <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+  </div>
+
+  <section class="panel closed" id="panel" aria-label="Details" aria-hidden="true">
+    <div class="panel-head">
+      <button class="panel-close" id="panel-close" type="button" aria-label="Close">×</button>
+      <div class="eyebrow" id="p-eyebrow"></div>
+      <h2 id="p-name"></h2>
+      <div class="addr" id="p-addr"></div>
+      <div class="links" id="p-links"></div>
+    </div>
+    <div class="panel-body" id="p-body"></div>
+  </section>
+
+  <div class="loading" id="loading">Loading I-55…</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+/* ---------- Settings you can change ---------- */
+const CONFIG = {
+  HOME_URL: "https://americangriot1.wixsite.com/american-griot-one",  // used only if the Wix page code isn't installed
+  HOME_PAGE: "american-griot-one",  // page name sent to the Wix page code
+  HOME_LABEL: "American Griot One",
+  EMBED_VIDEOS: true,            // play videos inside the page (false = open them on YouTube)
+  START_VIEW_MILES: 70           // how many miles of road fit on screen at the start
+};
+/*INLINE_DATA*/
+
+(async function () {
+  const home = document.getElementById("home");
+  home.href = CONFIG.HOME_URL; home.textContent = CONFIG.HOME_LABEL;
+  /* Inside a Wix embed, the page isn't allowed to change the whole browser window by itself,
+     so the button asks the Wix page code (i55Corridor_page-code.js) to do it.
+     If no page code answers, it falls back to opening the homepage directly. */
+  let wixAnswered = false;
+  window.addEventListener("message", e => { const m = e.data; if (m && m.source === "i55Page" && m.type === "ack") wixAnswered = true; });
+  home.addEventListener("click", e => {
+    if (window.parent === window) return; /* opened on its own: a plain link works */
+    e.preventDefault();
+    wixAnswered = false;
+    window.parent.postMessage({ source: "i55", type: "nav", page: CONFIG.HOME_PAGE }, "*");
+    setTimeout(() => {
+      if (wixAnswered) return;
+      try { window.top.location.href = CONFIG.HOME_URL; }
+      catch (err) { window.open(CONFIG.HOME_URL, "_blank", "noopener"); }
+    }, 700);
+  });
+
+  async function loadJSON(name, fallback) {
+    try {
+      const r = await fetch("data/" + name, { cache: "no-cache" });
+      if (!r.ok) throw new Error(r.status);
+      return await r.json();
+    } catch (e) {
+      const inline = (window.__I55_DATA || {})[name];
+      return inline !== undefined ? inline : fallback;
+    }
+  }
+  const [corridor, geo, outletsRaw, peopleFile, videosFile, discovered] = await Promise.all([
+    loadJSON("corridor.json", null), loadJSON("geo.json", null), loadJSON("outlets.json", []),
+    loadJSON("people.json", { people: [] }), loadJSON("videos.json", { people: {} }), loadJSON("discovered.json", {})
+  ]);
+  if (!corridor || !geo) { document.getElementById("loading").textContent = "The map could not load. Please refresh the page."; return; }
+
+  const STATE_BY_FIPS = { "22": "Louisiana", "28": "Mississippi", "47": "Tennessee", "05": "Arkansas", "29": "Missouri", "17": "Illinois" };
+  const STATE_ABBR = { Louisiana: "LA", Mississippi: "MS", Tennessee: "TN", Arkansas: "AR", Missouri: "MO", Illinois: "IL" };
+  const SOCIALS = [["youtube", "YouTube"], ["facebook", "Facebook"], ["instagram", "Instagram"], ["x", "X"], ["tiktok", "TikTok"]];
+  const countyFull = f => {
+    const n = f.properties.name, st = STATE_BY_FIPS[f.id.slice(0, 2)];
+    if (/ (city|City)$/.test(n)) return n.replace(/ city$/, " City");
+    return n + (st === "Louisiana" ? " Parish" : " County");
+  };
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const svg = d3.select("#map");
+  const world = d3.select("#world");
+  const routeGeo = { type: "LineString", coordinates: corridor.route };
+  const proj = d3.geoMercator().fitExtent([[0, 0], [1000, 1000]], routeGeo);
+  const path = d3.geoPath(proj);
+  const routeXY = corridor.route.map(c => proj(c));
+  const miles = corridor.miles;
+  const TOTAL = miles[miles.length - 1];
+  let baseLen = 0; for (let i = 1; i < routeXY.length; i++) baseLen += Math.hypot(routeXY[i][0] - routeXY[i - 1][0], routeXY[i][1] - routeXY[i - 1][1]);
+  const PX_PER_MILE = baseLen / TOTAL;
+
+  function pointAtMile(m) {
+    m = Math.max(0, Math.min(TOTAL, m));
+    let lo = 0, hi = miles.length - 1;
+    while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (miles[mid] <= m) lo = mid; else hi = mid; }
+    const span = miles[hi] - miles[lo] || 1, t = (m - miles[lo]) / span;
+    return [routeXY[lo][0] + (routeXY[hi][0] - routeXY[lo][0]) * t, routeXY[lo][1] + (routeXY[hi][1] - routeXY[lo][1]) * t];
+  }
+  /* mile of the closest point on the road to any map point (continuous) */
+  function mileAt(x, y) {
+    let best = 0, bd = Infinity;
+    for (let i = 1; i < routeXY.length; i++) {
+      const a = routeXY[i - 1], b = routeXY[i], vx = b[0] - a[0], vy = b[1] - a[1];
+      const L = vx * vx + vy * vy || 1;
+      let t = ((x - a[0]) * vx + (y - a[1]) * vy) / L; t = Math.max(0, Math.min(1, t));
+      const px = a[0] + vx * t, py = a[1] + vy * t, d = (px - x) ** 2 + (py - y) ** 2;
+      if (d < bd) { bd = d; best = miles[i - 1] + (miles[i] - miles[i - 1]) * t; }
+    }
+    return best;
+  }
+
+  /* ---- base layers ---- */
+  const corridorFips = corridor.counties;
+  d3.select("#g-states").selectAll("path").data(geo.states).join("path").attr("class", "state").attr("d", path);
+  const countyById = {};
+  const countySel = d3.select("#g-counties").selectAll("path").data(geo.counties).join("path")
+    .attr("class", d => "county" + (corridorFips[d.id] ? " " + corridorFips[d.id] : ""))
+    .attr("d", path)
+    .each(function (d) { countyById[d.id] = this; d.centroid = path.centroid(d); d.bounds = path.bounds(d); });
+  const bandCounties = countySel.filter(d => corridorFips[d.id])
+    .attr("tabindex", 0).attr("role", "button").attr("aria-label", d => countyFull(d) + ", " + STATE_BY_FIPS[d.id.slice(0, 2)]);
+  const roadD = d3.line()(routeXY);
+  d3.select("#road-casing").attr("d", roadD);
+  d3.select("#road").attr("d", roadD);
+  d3.select("#road-paint").attr("d", roadD);
+  d3.select("#buffer").attr("d", roadD)
+    .style("fill", "none").style("stroke", "rgba(237,241,244,.05)").style("pointer-events", "none")
+    .style("stroke-width", (10 * PX_PER_MILE) + "px").style("stroke-linecap", "round").style("stroke-linejoin", "round")
+    .style("stroke-dasharray", "none").style("vector-effect", "none");
+  ["#road-casing", "#road", "#road-paint"].forEach(s => d3.select(s).style("pointer-events", "none"));
+
+  /* which state each stretch of road is in */
+  const sixStates = geo.states.filter(s => STATE_ABBR[s.properties.name]);
+  const vertexState = corridor.route.map(c => { const s = sixStates.find(f => d3.geoContains(f, c)); return s ? s.properties.name : null; });
+  for (let i = 0; i < vertexState.length; i++) if (!vertexState[i]) vertexState[i] = vertexState[i - 1] || vertexState.find(Boolean);
+  function stateAtMile(m) { let lo = 0; while (lo < miles.length - 1 && miles[lo + 1] <= m) lo++; return vertexState[lo]; }
+  const segments = [];
+  vertexState.forEach((s, i) => {
+    const last = segments[segments.length - 1];
+    if (!last || last.state !== s) segments.push({ state: s, from: miles[i], to: miles[i] }); else last.to = miles[i];
+  });
+  for (let i = 0; i < segments.length - 1; i++) segments[i].to = segments[i + 1].from;
+  segments[segments.length - 1].to = TOTAL;
+  const stateSpans = {};
+  segments.forEach(s => { const sp = stateSpans[s.state] || (stateSpans[s.state] = { from: s.from, to: s.to }); sp.from = Math.min(sp.from, s.from); sp.to = Math.max(sp.to, s.to); });
+  const stateNames = Object.entries(stateSpans).map(([state, sp]) => ({ state, xy: pointAtMile((sp.from + sp.to) / 2) }));
+  const stateNameSel = d3.select("#g-statenames").selectAll("text").data(stateNames).join("text").attr("class", "state-name").text(d => d.state);
+
+  /* ---- towns (highlight only, not clickable) ---- */
+  const towns = corridor.places.map((p, i) => ({ ...p, i, xy: proj([p.lo, p.la]) }));
+  const townSel = d3.select("#g-towns").selectAll("g.town").data(towns).join("g")
+    .attr("class", d => "town t" + d.t).attr("aria-hidden", "true");
+  townSel.append("circle").attr("class", "dot").attr("r", d => d.t === 1 ? 4 : 2.6);
+  townSel.filter(d => d.t === 1).each(function (d) {
+    const g = d3.select(this);
+    g.append("text").attr("class", "sign-text").attr("x", 10).attr("y", 4).text(d.n);
+    d.w = d.n.length * 6.6 + 12;
+    g.insert("rect", "text").attr("class", "sign-bg").attr("x", 4).attr("y", -9).attr("rx", 3).attr("height", 18).attr("width", d.w);
+  });
+  townSel.filter(d => d.t === 2).append("text").attr("class", "label").attr("x", 6).attr("y", 4).text(d => d.n);
+  document.fonts && document.fonts.ready.then(() => {
+    townSel.filter(d => d.t === 1).each(function (d) {
+      try { const L = this.querySelector("text").getComputedTextLength(); if (L > 0) d.w = L + 12; } catch (e) { }
+      this.querySelector("rect").setAttribute("width", d.w);
+    });
+    needsLayout = true;
+  });
+
+  /* ---- outlets ---- */
+  const outlets = outletsRaw.map(o => {
+    const found = discovered[o.id] || {};
+    const links = {}; SOCIALS.forEach(([k]) => { links[k] = o[k] || found[k] || ""; });
+    const xy = proj([o.lon, o.lat]);
+    return { ...o, links, xy, mile: mileAt(xy[0], xy[1]) };
+  });
+  const byPlace = d3.group(outlets, o => o.lat.toFixed(3) + "," + o.lon.toFixed(3));
+  byPlace.forEach(list => list.forEach((o, i) => { o.fan = (i - (list.length - 1) / 2) * 64; }));
+
+  /* how many featured people each newsroom has */
+  const featuredCount = {};
+  (peopleFile.people || []).forEach(p => { if (p.outlet) featuredCount[p.outlet] = (featuredCount[p.outlet] || 0) + 1; });
+  const stationSel = d3.select("#g-stations").selectAll("g.station").data(outlets).join("g")
+    .attr("class", d => "station " + (d.tier === "major" ? "major" : "local"))
+    .attr("tabindex", 0).attr("role", "button").attr("aria-label", d => `${d.name}, ${d.market}. Open newsroom.`);
+  stationSel.each(function (d) {
+    const g = d3.select(this);
+    const r = d.tier === "major" ? 22 : 16;
+    for (let i = 0; i < 3; i++) g.append("circle").attr("class", "ring").attr("r", r);
+    g.append("circle").attr("class", "base").attr("r", d.tier === "major" ? 13 : 10.5);
+    const s = d.tier === "major" ? 1 : .8;
+    g.append("path").attr("class", "tower").attr("transform", `scale(${s})`).attr("d", "M-5 7 L0 -6 L5 7 M-3.2 2.2 H3.2 M-1.7 -2 H1.7 M-5.5 -6.5 Q-8 -3 -5.5 0.5 M5.5 -6.5 Q8 -3 5.5 0.5");
+    g.append("circle").attr("class", "tip").attr("cy", -7 * s).attr("r", 2.2 * s);
+    const nFeat = featuredCount[d.id] || 0;
+    if (nFeat) {
+      const off = d.tier === "major" ? 11 : 9;
+      const b = g.append("g").attr("class", "feat").attr("transform", `translate(${off},${-off})`);
+      b.append("circle").attr("r", 7.5);
+      b.append("circle").attr("class", "f-head").attr("cy", -2).attr("r", 2.1);
+      b.append("path").attr("d", "M-3.9 4.4 Q0 -1 3.9 4.4 Z");
+      d3.select(this).attr("aria-label", `${d.name}, ${d.market}. ${nFeat} featured. Open newsroom.`);
+    }
+    const label = g.append("g").attr("class", "call-label");
+    label.append("text").attr("class", "call").attr("text-anchor", "middle").attr("y", r + 14).text(d.short);
+    d.labelW = d.short.length * 7 + 12;
+    label.insert("rect", "text").attr("class", "call-bg").attr("x", -d.labelW / 2).attr("y", r + 2).attr("width", d.labelW).attr("height", 16).attr("rx", 3);
+  });
+
+  /* ---- route strip ---- */
+  const track = document.getElementById("strip-track");
+  const stateColors = { Louisiana: "#7d5ba6", Mississippi: "#2f7fb5", Tennessee: "#d0573f", Arkansas: "#3b9b6a", Missouri: "#c79a2b", Illinois: "#4a77c9" };
+  segments.forEach(s => {
+    const el = document.createElement("div"); el.className = "strip-seg";
+    el.style.top = (100 - s.to / TOTAL * 100) + "%"; el.style.height = ((s.to - s.from) / TOTAL * 100) + "%";
+    el.style.background = stateColors[s.state] || "var(--muted)"; track.appendChild(el);
+  });
+  Object.entries(stateSpans).forEach(([state, sp]) => {
+    if (sp.to - sp.from < 6) return;
+    const el = document.createElement("div"); el.className = "strip-seg-label";
+    el.style.top = (100 - (sp.from + sp.to) / 2 / TOTAL * 100) + "%"; el.textContent = STATE_ABBR[state]; track.appendChild(el);
+  });
+  outlets.forEach(o => {
+    const el = document.createElement("div"); el.className = "strip-tick" + (o.tier === "major" ? "" : " local");
+    el.style.top = (100 - o.mile / TOTAL * 100) + "%"; track.appendChild(el);
+  });
+  const car = document.createElement("div"); car.className = "strip-car"; track.appendChild(car);
+  function stripMile(ev) { const r = track.getBoundingClientRect(); return Math.max(0, Math.min(TOTAL, (1 - (ev.clientY - r.top) / r.height) * TOTAL)); }
+  track.addEventListener("pointerdown", e => {
+    track.setPointerCapture(e.pointerId); goToMile(stripMile(e));
+    const move = ev => goToMile(stripMile(ev));
+    const up = () => { track.removeEventListener("pointermove", move); track.removeEventListener("pointerup", up); };
+    track.addEventListener("pointermove", move); track.addEventListener("pointerup", up);
+  });
+
+  /* ---- camera: a free point on the map plus a zoom level ---- */
+  let W = 0, H = 0;
+  const kFor = viewMiles => H / (viewMiles * PX_PER_MILE);
+  function resize() { const r = svg.node().getBoundingClientRect(); W = r.width; H = r.height; }
+  resize();
+  const ext = d3.extent(routeXY, p => p[0]), eyt = d3.extent(routeXY, p => p[1]);
+  /* room kept clear for the title bar at the top and the mile-post card at the bottom */
+  const TOP_BAR = 70, BOTTOM_CARD = 160;
+  const fitK = () => Math.min((W - 140) / (ext[1] - ext[0]), (H - TOP_BAR - BOTTOM_CARD) / (eyt[1] - eyt[0]));
+  const KMIN = () => Math.min(fitK() * 0.8, kFor(TOTAL * 0.75)), KMAX = () => kFor(3);
+  function fitWholeRoute() {
+    target.k = fitK();
+    target.x = (ext[0] + ext[1]) / 2;
+    target.y = (eyt[0] + eyt[1]) / 2 - ((TOP_BAR - BOTTOM_CARD) / 2) / target.k;
+  }
+  const MARGIN = 45 * PX_PER_MILE;
+  function parseHash() { const m = /^#mile-(\d+)$/.exec(location.hash); return m ? Math.min(TOTAL, +m[1]) : null; }
+  const startMile = parseHash();
+  const target = { x: 0, y: 0, k: 1 };
+  if (startMile == null) fitWholeRoute();
+  else { const sp0 = pointAtMile(startMile); target.x = sp0[0]; target.y = sp0[1]; target.k = kFor(CONFIG.START_VIEW_MILES); }
+  const cam = { ...target };
+  let needsLayout = true;
+  window.addEventListener("resize", () => { const old = kFor(1); resize(); const ratio = kFor(1) / old; target.k *= ratio; cam.k *= ratio; needsLayout = true; });
+  window.addEventListener("hashchange", () => { const m = parseHash(); if (m != null) goToMile(m); });
+
+  function clampTarget() {
+    target.k = Math.max(KMIN(), Math.min(KMAX(), target.k));
+    target.x = Math.max(ext[0] - MARGIN, Math.min(ext[1] + MARGIN, target.x));
+    target.y = Math.max(eyt[0] - MARGIN, Math.min(eyt[1] + MARGIN, target.y));
+  }
+  function goToMile(m) { const p = pointAtMile(m); target.x = p[0]; target.y = p[1]; }
+  /* travel along I-55 while keeping any sideways offset the visitor dragged to */
+  function travel(dm) {
+    const m0 = mileAt(target.x, target.y), q = pointAtMile(m0), p = pointAtMile(m0 + dm);
+    target.x = p[0] + (target.x - q[0]); target.y = p[1] + (target.y - q[1]);
+  }
+  function toScreen(xy, k) { return [(xy[0] - cam.x) * k + W / 2, (xy[1] - cam.y) * k + H / 2]; }
+
+  let focusTown = null, focusCounty = null, selectedCounty = null, lastHud = "", clusterSel = null;
+  function render() {
+    const k = cam.k;
+    world.attr("transform", `translate(${W / 2 - cam.x * k},${H / 2 - cam.y * k}) scale(${k})`);
+    const pxm = k * PX_PER_MILE, pad = 120;
+    stateNameSel.attr("transform", d => { const p = toScreen(d.xy, k); return `translate(${p[0] + 70},${p[1]})`; })
+      .style("display", pxm < 2.2 ? null : "none");
+
+    const placed = [];
+    const hits = b => placed.some(a => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3]);
+    outlets.forEach(o => { const p = toScreen(o.xy, k); p[0] += o.fan; o.sx = p[0]; o.sy = p[1]; o.inCluster = false; });
+    /* towers that would overlap on screen merge into one numbered bubble */
+    const clusters = [];
+    outlets.slice().sort((a, b) => (a.tier === "major" ? 0 : 1) - (b.tier === "major" ? 0 : 1)).forEach(o => {
+      if (o.sx < -pad || o.sx > W + pad || o.sy < -pad || o.sy > H + pad) return;
+      const c = clusters.find(c => Math.abs(c.sx - o.sx) < 46 && Math.abs(c.sy - o.sy) < 40);
+      if (c) c.m.push(o); else clusters.push({ sx: o.sx, sy: o.sy, m: [o] });
+    });
+    /* merged bubbles can land on each other; keep merging until none overlap */
+    clusters.forEach(c => { c.sx = d3.mean(c.m, o => o.sx); c.sy = d3.mean(c.m, o => o.sy); });
+    for (let again = true; again;) {
+      again = false;
+      outer: for (let i = 0; i < clusters.length; i++) for (let j = i + 1; j < clusters.length; j++) {
+        const a = clusters[i], b = clusters[j];
+        if (Math.abs(a.sx - b.sx) < 50 && Math.abs(a.sy - b.sy) < 46) {
+          a.m = a.m.concat(b.m); a.sx = d3.mean(a.m, o => o.sx); a.sy = d3.mean(a.m, o => o.sy);
+          clusters.splice(j, 1); again = true; break outer;
+        }
+      }
+    }
+    const multi = clusters.filter(c => c.m.length > 1);
+    multi.forEach(c => {
+      c.m.forEach(o => { o.inCluster = true; });
+      c.x = d3.mean(c.m, o => o.xy[0]); c.y = d3.mean(c.m, o => o.xy[1]);
+      c.key = c.m.map(o => o.id).sort().join("|");
+      placed.push([c.sx - 26, c.sy - 26, c.sx + 26, c.sy + 40]);
+    });
+    outlets.forEach(o => { if (!o.inCluster) placed.push([o.sx - 26, o.sy - 26, o.sx + 26, o.sy + 44]); });
+    clusterSel = d3.select("#g-clusters").selectAll("g.cluster").data(multi, c => c.key).join(enter => {
+      const g = enter.append("g").attr("class", "cluster").attr("tabindex", 0).attr("role", "button");
+      g.append("circle").attr("class", "c-ring").attr("r", 26);
+      g.append("circle").attr("class", "c-ring").attr("r", 26);
+      g.append("circle").attr("class", "c-base").attr("r", 17);
+      g.append("text").attr("class", "c-count").attr("text-anchor", "middle").attr("y", 5);
+      g.append("text").attr("class", "c-label").attr("text-anchor", "middle").attr("y", 34).text("Newsrooms");
+      const b = g.append("g").attr("class", "feat").attr("transform", "translate(14,-14)");
+      b.append("circle").attr("r", 7.5);
+      b.append("circle").attr("class", "f-head").attr("cy", -2).attr("r", 2.1);
+      b.append("path").attr("d", "M-3.9 4.4 Q0 -1 3.9 4.4 Z");
+      g.on("click", (e, c) => { if (dragDist > 6) return; openCluster(c); });
+      return g;
+    })
+      .attr("aria-label", c => c.m.length + " newsrooms here")
+      .attr("transform", c => `translate(${c.sx},${c.sy})`);
+    clusterSel.select(".c-count").text(c => c.m.length);
+    clusterSel.select(".feat").style("display", c => c.m.some(o => featuredCount[o.id]) ? null : "none");
+    clusterSel.select(".c-label").style("display", pxm > 0.7 ? null : "none");
+    const showT1 = pxm > 1.25, showT2 = pxm > 5;
+    const order = towns.slice().sort((a, b) => (a.t - b.t) || (Math.abs(a.sy - H / 2) - Math.abs(b.sy - H / 2)));
+    towns.forEach(d => { const p = toScreen(d.xy, k); d.sx = p[0]; d.sy = p[1]; });
+    order.forEach(d => {
+      const onScreen = d.sx > -pad && d.sx < W + pad && d.sy > -pad && d.sy < H + pad;
+      d.visible = onScreen && (d.t === 1 ? showT1 : showT2);
+      d.labelOn = false;
+      if (!d.visible) return;
+      const w = d.t === 1 ? (d.w || 80) + 6 : d.n.length * 6 + 8;
+      let box = [d.sx + 2, d.sy - 10, d.sx + w, d.sy + 10];
+      if (!hits(box)) d.flip = false;
+      else { box = [d.sx - w, d.sy - 10, d.sx - 2, d.sy + 10]; d.flip = !hits(box); if (!d.flip) box = null; }
+      if (box) { placed.push(box); d.labelOn = true; }
+    });
+    townSel.style("display", d => d.visible ? null : "none").attr("transform", d => `translate(${d.sx},${d.sy})`);
+    townSel.each(function (d) {
+      if (!d.visible) return;
+      const label = this.querySelector(d.t === 1 ? "text.sign-text" : "text.label");
+      const rect = this.querySelector("rect");
+      const vis = d.labelOn || this.classList.contains("focus");
+      label.style.display = vis ? "" : "none"; if (rect) rect.style.display = vis ? "" : "none";
+      if (d.t === 1) { const w = d.w || 80; rect.setAttribute("x", d.flip ? -4 - w : 4); label.setAttribute("x", d.flip ? -w + 2 : 10); }
+      else { label.setAttribute("x", d.flip ? -6 : 6); label.setAttribute("text-anchor", d.flip ? "end" : "start"); }
+    });
+    stationSel
+      .style("display", d => (!d.inCluster && d.sx > -pad && d.sx < W + pad && d.sy > -pad && d.sy < H + pad) ? null : "none")
+      .attr("transform", d => `translate(${d.sx},${d.sy})`);
+    stationSel.selectAll(".call-label").style("display", pxm > 0.7 ? null : "none");
+
+    /* the town nearest the middle of the screen gets the glowing sign */
+    let best = null, bd = Infinity;
+    towns.forEach(d => { if (d.t !== 1) return; const dd = (d.xy[0] - cam.x) ** 2 + (d.xy[1] - cam.y) ** 2; if (dd < bd) { bd = dd; best = d; } });
+    if (best !== focusTown) {
+      townSel.classed("focus", d => d === best); focusTown = best;
+      if (focusCounty) focusCounty.classList.remove("focus");
+      const el = best && countyById[best.f];
+      if (el) el.classList.add("focus");
+      focusCounty = el || null;
+      raise();
+    }
+    const mile = mileAt(cam.x, cam.y);
+    const st = stateAtMile(mile);
+    const hud = Math.round(mile) + "|" + st + "|" + (best && best.n);
+    if (hud !== lastHud) {
+      lastHud = hud;
+      document.getElementById("mp-mile").textContent = Math.round(mile);
+      document.getElementById("mp-state").textContent = st || "";
+      document.getElementById("mp-town").textContent = best ? best.n : "";
+      const cf = best && geoCounty(best.f);
+      document.getElementById("mp-county").textContent = cf ? countyFull(cf) : "";
+    }
+    car.style.top = (100 - mile / TOTAL * 100) + "%";
+  }
+  const geoById = {}; geo.counties.forEach(f => { geoById[f.id] = f; });
+  const geoCounty = id => geoById[id];
+  /* outlines are drawn in their own layer on top, so county shapes never move in the page (moving them would swallow taps) */
+  function raise() {
+    const list = [];
+    if (focusCounty) list.push({ el: focusCounty, c: "focus" });
+    document.querySelectorAll("#g-counties .county.hot").forEach(el => list.push({ el, c: "hot" }));
+    if (selectedCounty) list.push({ el: selectedCounty, c: "selected" });
+    d3.select("#g-county-outline").selectAll("path").data(list).join("path")
+      .attr("class", d => "outline " + d.c).attr("d", d => d.el.getAttribute("d"));
+  }
+
+  function tick() {
+    clampTarget();
+    const ease = reduceMotion ? 1 : 0.18;
+    const dx = target.x - cam.x, dy = target.y - cam.y, dk = target.k - cam.k;
+    const moving = Math.abs(dx) * cam.k > 0.3 || Math.abs(dy) * cam.k > 0.3 || Math.abs(dk) / target.k > 0.001;
+    if (moving) { cam.x += dx * ease; cam.y += dy * ease; cam.k += dk * ease; }
+    else { cam.x = target.x; cam.y = target.y; cam.k = target.k; }
+    if (moving || needsLayout) { render(); needsLayout = false; }
+    requestAnimationFrame(tick);
+  }
+
+  /* ---- input ---- */
+  const milesPerPx = () => 1 / (cam.k * PX_PER_MILE);
+  svg.node().addEventListener("wheel", e => {
+    e.preventDefault();
+    const unit = e.deltaMode === 1 ? 16 : 1;
+    if (e.ctrlKey || e.metaKey) { target.k *= Math.exp(-e.deltaY * unit * 0.01); return; }
+    let dx = e.deltaX * unit, dy = e.deltaY * unit;
+    if (e.shiftKey && !dx) { dx = dy; dy = 0; }
+    if (dx) target.x += dx / cam.k;
+    if (dy) travel(-dy * milesPerPx() * 0.9);
+  }, { passive: false });
+
+  /* drag in any direction; two fingers pinch to zoom */
+  const pointers = new Map(); let dragDist = 0, pinchStart = null;
+  svg.node().addEventListener("pointerdown", e => {
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    dragDist = 0; svg.classed("dragging", true);
+    if (pointers.size === 2) { const [a, b] = [...pointers.values()]; pinchStart = { d: Math.hypot(a.x - b.x, a.y - b.y), k: target.k }; }
+  });
+  window.addEventListener("pointermove", e => {
+    if (!pointers.has(e.pointerId)) return;
+    const prev = pointers.get(e.pointerId); const dx = e.clientX - prev.x, dy = e.clientY - prev.y;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2 && pinchStart) {
+      const [a, b] = [...pointers.values()]; target.k = pinchStart.k * Math.hypot(a.x - b.x, a.y - b.y) / pinchStart.d; dragDist += 10; return;
+    }
+    dragDist += Math.abs(dx) + Math.abs(dy);
+    if (dragDist > 4) {
+      target.x -= dx / cam.k; target.y -= dy / cam.k;
+      cam.x -= dx / cam.k; cam.y -= dy / cam.k; needsLayout = true;
+    }
+  });
+  const endPointer = e => { pointers.delete(e.pointerId); if (pointers.size < 2) pinchStart = null; if (!pointers.size) svg.classed("dragging", false); };
+  window.addEventListener("pointerup", endPointer); window.addEventListener("pointercancel", endPointer);
+
+  const stepMiles = () => Math.max(2, (H / (target.k * PX_PER_MILE)) * 0.35);
+  const panStep = () => W * 0.3 / target.k;
+  document.getElementById("go-north").addEventListener("click", () => goToMile(mileAt(target.x, target.y) + stepMiles()));
+  document.getElementById("go-south").addEventListener("click", () => goToMile(mileAt(target.x, target.y) - stepMiles()));
+  document.getElementById("zoom-in").addEventListener("click", () => { target.k *= 1.5; });
+  document.getElementById("zoom-out").addEventListener("click", () => { target.k /= 1.5; });
+  window.addEventListener("keydown", e => {
+    if (e.target.closest && e.target.closest("input,textarea,#panel")) { if (e.key === "Escape") closePanel(); return; }
+    if (e.key === "ArrowUp" || e.key === "PageUp") { travel(stepMiles() * (e.key === "PageUp" ? 2.5 : 1)); e.preventDefault(); }
+    else if (e.key === "ArrowDown" || e.key === "PageDown") { travel(-stepMiles() * (e.key === "PageDown" ? 2.5 : 1)); e.preventDefault(); }
+    else if (e.key === "ArrowLeft") { target.x -= panStep(); e.preventDefault(); }
+    else if (e.key === "ArrowRight") { target.x += panStep(); e.preventDefault(); }
+    else if (e.key === "+" || e.key === "=") target.k *= 1.5;
+    else if (e.key === "-") target.k /= 1.5;
+    else if (e.key === "Escape") closePanel();
+    else if ((e.key === "Enter" || e.key === " ") && e.target.__data__) { e.target.dispatchEvent(new MouseEvent("click", { bubbles: true })); e.preventDefault(); }
+  });
+
+  /* ---- counties: highlight on hover, open on tap ---- */
+  function setCountyHot(d, on) {
+    const el = countyById[d.id];
+    el.classList.toggle("hot", on);
+    townSel.filter(t => t.f === d.id).classed("hot", on);
+    raise();
+    needsLayout = true;
+  }
+  bandCounties
+    .on("pointerenter", function (e, d) { if (!pointers.size) setCountyHot(d, true); })
+    .on("pointerleave", function (e, d) { setCountyHot(d, false); })
+    .on("focus", function (e, d) { setCountyHot(d, true); })
+    .on("blur", function (e, d) { setCountyHot(d, false); })
+    .on("click", (e, d) => { if (dragDist > 6) return; openCounty(d); });
+  stationSel.on("click", (e, d) => { if (dragDist > 6) return; openPanel(d); });
+  /* a mouse press must not move keyboard focus: in an embed, focus can scroll the host page */
+  stationSel.on("mousedown", e => e.preventDefault());
+  bandCounties.on("mousedown", e => e.preventDefault());
+
+  /* ---- detail panel (newsroom or county) ---- */
+  const panel = document.getElementById("panel");
+  const people = (peopleFile.people || []);
+  const vids = (videosFile.people || {});
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const safeUrl = u => /^https?:\/\//i.test(u || "") ? u : (u && u.startsWith("@") ? "https://www.youtube.com/" + u : "");
+  const fmtDate = iso => { try { return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }); } catch (e) { return ""; } };
+  const initials = n => n.split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase();
+
+  function linkPills(links, website) {
+    let html = website ? `<a class="primary" href="${esc(safeUrl(website))}" target="_blank" rel="noopener">Website</a>` : "";
+    SOCIALS.forEach(([k, label]) => { const u = safeUrl(links[k]); if (u) html += `<a href="${esc(u)}" target="_blank" rel="noopener">${label}</a>`; });
+    return html;
+  }
+  function videoTile(v) {
+    const url = "https://www.youtube.com/watch?v=" + encodeURIComponent(v.v);
+    return `<div class="video">
+      <div class="video-frame"><button type="button" data-v="${esc(v.v)}" aria-label="Play ${esc(v.title)}">
+        <img loading="lazy" alt="" src="https://i.ytimg.com/vi/${esc(v.v)}/mqdefault.jpg"><span class="play"></span></button></div>
+      <div class="video-title">${esc(v.title)}</div>
+      <div class="video-meta">${esc(fmtDate(v.published))} · <a href="${url}" target="_blank" rel="noopener">YouTube</a></div>
+    </div>`;
+  }
+  let lastInputWasKeyboard = false;
+  window.addEventListener("keydown", () => { lastInputWasKeyboard = true; }, true);
+  window.addEventListener("pointerdown", () => { lastInputWasKeyboard = false; }, true);
+  function showPanel(isLocal) {
+    panel.classList.toggle("local-outlet", !!isLocal);
+    panel.classList.remove("closed"); panel.setAttribute("aria-hidden", "false");
+    const pb = document.getElementById("p-body"); pb.scrollTop = 0;
+    if (lastInputWasKeyboard) document.getElementById("panel-close").focus({ preventScroll: true });
+    /* inside Wix, ask the page to scroll so the whole map and its details are on screen */
+    if (window.parent !== window) window.parent.postMessage({ source: "i55", type: "details" }, "*");
+  }
+  function selectCounty(id) {
+    if (selectedCounty) selectedCounty.classList.remove("selected");
+    selectedCounty = id ? countyById[id] : null;
+    if (selectedCounty) selectedCounty.classList.add("selected");
+    raise();
+  }
+
+  function openPanel(o) {
+    stationSel.classed("active", d => d === o);
+    selectCounty(null);
+    document.getElementById("p-eyebrow").textContent = `${o.kind} · ${o.market}`;
+    document.getElementById("p-name").textContent = o.name;
+    document.getElementById("p-addr").textContent = o.address;
+    document.getElementById("p-links").innerHTML = linkPills(o.links, o.website);
+
+    const mine = people.filter(p => p.outlet === o.id);
+    let body = "";
+    if (mine.length) {
+      body += `<div><h3 class="section-title">Featured</h3><div class="person-grid">` + mine.map(p => {
+        const list = vids[p.id] || [];
+        const photo = safeUrl(p.photo);
+        return `<article class="person">
+          <div class="person-head">
+            <div class="avatar">${photo ? `<img alt="" src="${esc(photo)}">` : esc(initials(p.name || "?"))}</div>
+            <div><div class="person-name">${esc(p.name)}</div><div class="person-role">${esc(p.role || "")}</div></div>
+          </div>
+          <div class="links">${p.profile ? `<a class="primary" href="${esc(safeUrl(p.profile))}" target="_blank" rel="noopener">Profile</a>` : ""}${p.website ? `<a href="${esc(safeUrl(p.website))}" target="_blank" rel="noopener">Website</a>` : ""}${linkPills(p, "")}${p.linkedin ? `<a href="${esc(safeUrl(p.linkedin))}" target="_blank" rel="noopener">LinkedIn</a>` : ""}</div>
+          ${list.length ? `<div class="videos">${list.map(videoTile).join("")}</div>` : `<div class="empty">New reports from ${esc(p.name)} will appear here.</div>`}
+        </article>`;
+      }).join("") + `</div></div>`;
+    }
+    const cf = geoCounty(o.county_fips);
+    if (cf) body += `<div style="display:grid;gap:10px"><h3 class="section-title">Where it is</h3><button type="button" class="county-link" data-county="${esc(cf.id)}">${esc(countyFull(cf))}, ${esc(STATE_BY_FIPS[cf.id.slice(0, 2)])}</button></div>`;
+    const near = towns.filter(t => t.t === 1).map(t => ({ t, d: Math.hypot(t.xy[0] - o.xy[0], t.xy[1] - o.xy[1]) / PX_PER_MILE }))
+      .filter(x => x.d < 12).sort((a, b) => a.d - b.d).slice(0, 8);
+    if (near.length) body += `<div><h3 class="section-title">Corridor towns nearby</h3><div class="chips">${near.map(x => `<span>${esc(x.t.n)}</span>`).join("")}</div></div>`;
+    document.getElementById("p-body").innerHTML = body;
+    showPanel(o.tier !== "major");
+    centerAbovePanel(o.xy[0], o.xy[1], o.fan || 0);
+  }
+
+  function openCounty(d) {
+    stationSel.classed("active", false);
+    selectCounty(d.id);
+    const st = STATE_BY_FIPS[d.id.slice(0, 2)];
+    const crossed = corridorFips[d.id] === "crossed";
+    document.getElementById("p-eyebrow").textContent = `${st === "Louisiana" ? "Parish" : "County"} · ${st}`;
+    document.getElementById("p-name").textContent = countyFull(d);
+    document.getElementById("p-addr").textContent = crossed ? "Interstate 55 runs through this county." : "This county reaches within five miles of Interstate 55.";
+    document.getElementById("p-links").innerHTML = "";
+    const here = outlets.filter(o => o.county_fips === d.id).sort((a, b) => (a.tier === "major" ? 0 : 1) - (b.tier === "major" ? 0 : 1) || a.name.localeCompare(b.name));
+    const t1 = towns.filter(t => t.f === d.id && t.t === 1).sort((a, b) => b.m - a.m);
+    const t2 = towns.filter(t => t.f === d.id && t.t === 2).sort((a, b) => a.n.localeCompare(b.n));
+    let body = `<div><h3 class="section-title">Newsrooms</h3>`;
+    body += here.length ? `<div class="outlet-list">${here.map(o => `<button type="button" class="outlet-row ${o.tier === "major" ? "" : "local"}" data-outlet="${esc(o.id)}"><span class="badge">${esc(o.short)}</span><div><div class="o-name">${esc(o.name)}</div><div class="o-kind">${esc(o.kind)} · ${esc(o.market)}${featuredCount[o.id] ? ` · <span class="o-feat">${featuredCount[o.id]} featured</span>` : ""}</div></div></button>`).join("")}</div>`
+      : `<div class="empty">No newsrooms sit inside the corridor in this ${st === "Louisiana" ? "parish" : "county"}. Its towns are covered by the newsrooms nearest them along I-55.</div>`;
+    body += `</div>`;
+    if (t1.length) body += `<div><h3 class="section-title">Towns I-55 crosses</h3><div class="chips">${t1.map(t => `<span>${esc(t.n)}</span>`).join("")}</div></div>`;
+    if (t2.length) body += `<div><h3 class="section-title">Within five miles</h3><div class="chips t2">${t2.map(t => `<span>${esc(t.n)}</span>`).join("")}</div></div>`;
+    document.getElementById("p-body").innerHTML = body;
+    showPanel(false);
+    /* bring the county into view */
+    const [[x0, y0], [x1, y1]] = d.bounds;
+    const fit = Math.min(W / ((x1 - x0) * 1.4 || 1), H / ((y1 - y0) * 1.4 || 1));
+    const room = Math.max(120, sheetTopPx() - TOP_BAR);
+    const fitTop = Math.min(W / ((x1 - x0) * 1.3 || 1), room / ((y1 - y0) * 1.3 || 1));
+    target.k = Math.min(Math.max(fitTop, KMIN()), target.k * 1.2, KMAX());
+    centerAbovePanel(d.centroid[0], d.centroid[1], 0);
+  }
+
+  /* a bubble zooms in until its towers separate; when they can't (same block), it lists them */
+  function openCluster(c) {
+    if (target.k < KMAX() / 1.6) {
+      target.x = c.x; target.y = c.y; target.k = Math.min(KMAX(), target.k * 2.6);
+      return;
+    }
+    stationSel.classed("active", false); selectCounty(null);
+    document.getElementById("p-eyebrow").textContent = c.m[0].market;
+    document.getElementById("p-name").textContent = c.m.length + " newsrooms on this block";
+    document.getElementById("p-addr").textContent = "";
+    document.getElementById("p-links").innerHTML = "";
+    document.getElementById("p-body").innerHTML = `<div class="outlet-list">${c.m.map(o => `<button type="button" class="outlet-row ${o.tier === "major" ? "" : "local"}" data-outlet="${esc(o.id)}"><span class="badge">${esc(o.short)}</span><div><div class="o-name">${esc(o.name)}</div><div class="o-kind">${esc(o.kind)} · ${esc(o.address)}${featuredCount[o.id] ? ` · <span class="o-feat">${featuredCount[o.id]} featured</span>` : ""}</div></div></button>`).join("")}</div>`;
+    showPanel(false);
+    centerAbovePanel(c.x, c.y, 0);
+  }
+
+  /* the details sheet starts this far down the screen */
+  const sheetTopPx = () => Math.round(H * (H < 560 ? 0.46 : 0.42));
+  document.getElementById("app").style.setProperty("--sheet-top", "42%");
+  function syncSheetTop() { document.getElementById("app").style.setProperty("--sheet-top", sheetTopPx() + "px"); }
+  syncSheetTop(); window.addEventListener("resize", syncSheetTop);
+  /* slide the map so a point sits centered left-to-right, in the middle of the map strip above the sheet */
+  function centerAbovePanel(x, y, fanPx) {
+    const k = target.k;
+    const midY = (TOP_BAR + sheetTopPx()) / 2;
+    target.x = x + fanPx / k;
+    target.y = y + (H / 2 - midY) / k;
+  }
+
+  function closePanel() { panel.classList.add("closed"); panel.setAttribute("aria-hidden", "true"); stationSel.classed("active", false); selectCounty(null); }
+  document.getElementById("panel-close").addEventListener("click", closePanel);
+  document.getElementById("p-body").addEventListener("click", e => {
+    const play = e.target.closest("button[data-v]");
+    if (play) {
+      const id = play.getAttribute("data-v");
+      if (!CONFIG.EMBED_VIDEOS) { window.open("https://www.youtube.com/watch?v=" + encodeURIComponent(id), "_blank", "noopener"); return; }
+      const f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0";
+      f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true; f.title = "Video";
+      play.parentNode.replaceChild(f, play); return;
+    }
+    const oBtn = e.target.closest("button[data-outlet]");
+    if (oBtn) { const o = outlets.find(x => x.id === oBtn.getAttribute("data-outlet")); if (o) openPanel(o); return; }
+    const cBtn = e.target.closest("button[data-county]");
+    if (cBtn) { const f = geoCounty(cBtn.getAttribute("data-county")); if (f) openCounty(f); }
+  });
+
+  document.getElementById("loading").remove();
+  render();
+  requestAnimationFrame(tick);
+})();
+</script>
+<!-- AGO shell: shared back button, members, brand frame and "More from AGO" links -->
+<script src="https://norsounorllc2026-lgtm.github.io/ago/shell/ago-shell.js" data-page="i-55-corridor" data-back="#home" data-member="compact" data-footer="off"></script>
+</body>
+</html>
