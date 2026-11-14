@@ -1,0 +1,45 @@
+name: Update featured videos
+
+on:
+  schedule:
+    # Every day at 11:17 UTC (5:17 AM Central in winter, 6:17 AM in summer)
+    - cron: "17 11 * * *"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - "data/people.json"
+      - "data/outlets.json"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-videos
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Pull newest videos
+        run: python scripts/update_videos.py
+
+      - name: Save changes
+        run: |
+          git config user.name "i55-corridor-bot"
+          git config user.email "i55-corridor-bot@users.noreply.github.com"
+          git pull --rebase --autostash
+          git add data/videos.json data/discovered.json data/channel_ids.json
+          if git diff --cached --quiet; then
+            echo "No changes today."
+          else
+            git commit -m "Daily video update"
+            git push
+          fi
