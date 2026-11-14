@@ -1,0 +1,1213 @@
+{
+ "people": [{
+ "people": [
+  {
+   "id": "arianna-poindexter-action-news-5-wmc",
+   "outlet": "action-news-5-wmc",
+   "name": "Arianna Poindexter",
+   "role": "",
+   "photo": "https://gray-wmctv-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2Fba51d41e-f068-46f8-bf69-1a174b56013c.jpg?auth=7a659c6208e889b7f9c76976136797d334a8e96761a2a8c6152f89a78f22932d&width=1200&height=600&smart=true",
+   "profile": "https://www.actionnews5.com/authors/arianna-poindexter/",
+   "website": "",
+   "match": [
+    "Arianna Poindexter"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/AriannaPoindexterReports",
+   "x": "https://www.x.com/AriannaWMC5",
+   "linkedin": ""
+  },
+  {
+   "id": "caresse-jackman-action-news-5-wmc",
+   "outlet": "action-news-5-wmc",
+   "name": "Caresse Jackman",
+   "role": "Investigative Reporter",
+   "photo": "https://gray-wmctv-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2Fc65f8ee4-257b-439d-9c69-6193dfc38bff.png?auth=4f3b844503b2158e2549549b51ea8ccd3f2685d371ab45eca17acfffb2755f9a&width=1200&height=600&smart=true",
+   "profile": "https://www.actionnews5.com/authors/Caresse-Jackman/",
+   "website": "",
+   "match": [
+    "Caresse Jackman"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/caressejackmanWSMV",
+   "x": "https://www.x.com/CaresseJ",
+   "linkedin": ""
+  },
+  {
+   "id": "deja-brown-action-news-5-wmc",
+   "outlet": "action-news-5-wmc",
+   "name": "Deja Brown",
+   "role": "Journalist",
+   "photo": "https://gray-wmctv-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2Fb5ab45cf-9018-442c-979b-e46d3148a64c.png?auth=62b9d5e8912df02cbe4e5fb62c5f14756502343a6d31207e0e822bca96bce49e&width=1200&height=600&smart=true",
+   "profile": "https://www.actionnews5.com/authors/Deja-Brown/",
+   "website": "",
+   "match": [
+    "Deja Brown"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WMCActionNews5",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "imani-williams-action-news-5-wmc",
+   "outlet": "action-news-5-wmc",
+   "name": "Imani Williams",
+   "role": "",
+   "photo": "https://gray-wmctv-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F0c48551c-bde8-46fb-ac94-23000678c790.jpg?auth=802a7a2dcf61e3b09ca3cce60340b2ec6a9251ec77038e5cee8c3056e797d7f3&width=1200&height=600&smart=true",
+   "profile": "https://www.actionnews5.com/authors/imani-williams/",
+   "website": "",
+   "match": [
+    "Imani Williams"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WMCActionNews5",
+   "x": "https://www.x.com/ImaniWilliamstv",
+   "linkedin": ""
+  },
+  {
+   "id": "jerry-askin-action-news-5-wmc",
+   "outlet": "action-news-5-wmc",
+   "name": "Jerry Askin",
+   "role": "Anchor",
+   "photo": "https://gray-wmctv-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F991ac47f-f375-40a4-b056-af1a3fb06dcd.jpg?auth=86fa452c7bbb0fa362ad1589102ae3967f57426bdbd006527900998c8dc22888&width=1200&height=600&smart=true",
+   "profile": "https://www.actionnews5.com/authors/jerry-askin/",
+   "website": "",
+   "match": [
+    "Jerry Askin"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WMCActionNews5",
+   "x": "https://www.x.com/JerryAskinNews",
+   "linkedin": ""
+  },
+  {
+   "id": "joy-redmond-action-news-5-wmc",
+   "outlet": "action-news-5-wmc",
+   "name": "Joy Redmond",
+   "role": "",
+   "photo": "https://gray-wmctv-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2FECENPP72WNEXTH55A7AGI7NDJU.png?auth=09f932ac2458b2b97e246f219aaf988369aaa4616270dde17ebee4b06ac08656&width=1200&height=600&smart=true",
+   "profile": "https://www.actionnews5.com/authors/joy-redmond/",
+   "website": "",
+   "match": [
+    "Joy Redmond"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/Joy-Redmond-WMC-229210313786910",
+   "x": "https://www.x.com/JoyRedmondTV",
+   "linkedin": ""
+  },
+  {
+   "id": "kelli-cook-action-news-5-wmc",
+   "outlet": "action-news-5-wmc",
+   "name": "Kelli Cook",
+   "role": "Reporter",
+   "photo": "https://gray-wmctv-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fraycom%2Fbb8e3b49-5be0-4aa5-a1cb-9e97c85a4f27.jpg?auth=23fd8d1a8fcc52c87cad0c1cb5be8cbb5f94b59ea86277df9826565c5b9ca69b&width=1200&height=600&smart=true",
+   "profile": "https://www.actionnews5.com/authors/kelli-cook/",
+   "website": "",
+   "match": [
+    "Kelli Cook"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/KelliCookTV",
+   "x": "https://www.x.com/TVKelliC",
+   "linkedin": ""
+  },
+  {
+   "id": "kym-clark-action-news-5-wmc",
+   "outlet": "action-news-5-wmc",
+   "name": "Kym Clark",
+   "role": "Anchor",
+   "photo": "https://gray-wmctv-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fraycom%2F14f80cf6-3436-452c-90fd-c397363920a9.jpg?auth=5fde6e28732325fedef4a3ce33e00645d5a2b2241f27ea4a2b6c82805803dd7f&width=1200&height=600&smart=true",
+   "profile": "https://www.actionnews5.com/authors/kym-clark/",
+   "website": "",
+   "match": [
+    "Kym Clark"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/KymClarkWMCActionNews5",
+   "x": "https://www.x.com/Kymon5",
+   "linkedin": ""
+  },
+  {
+   "id": "shayna-norwood-action-news-5-wmc",
+   "outlet": "action-news-5-wmc",
+   "name": "Shayna Norwood",
+   "role": "Producer",
+   "photo": "https://gray-wmctv-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2FPE7MEUPCIZELNFQULLXM2O6ZFA.png?auth=e54d57ff6fbf4c0a3344a976b403ccf53f90ba79a5b963d159a046a09ca17984&width=1200&height=600&smart=true",
+   "profile": "https://www.actionnews5.com/authors/shayna-norwood/",
+   "website": "",
+   "match": [
+    "Shayna Norwood"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WMCActionNews5",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "tisha-powell-action-news-5-wmc",
+   "outlet": "action-news-5-wmc",
+   "name": "Tisha Powell",
+   "role": "Anchor",
+   "photo": "https://gray-wmctv-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F2bc8335b-6d55-4f9f-a03d-48ac5f19f109.png?auth=0cd5c2a31cb9080ef0ded68123adfba72be9814427cdd0a420d24f56f4b486c3&width=1200&height=600&smart=true",
+   "profile": "https://www.actionnews5.com/authors/tisha-powell-itv/",
+   "website": "",
+   "match": [
+    "Tisha Powell"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WMCActionNews5",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "k-ellen-stackhouse-capitol-news-illinois",
+   "outlet": "capitol-news-illinois",
+   "name": "K Ellen Stackhouse",
+   "role": "Writer",
+   "photo": "https://secure.gravatar.com/avatar/dd412fe1cec8ee03b55cca8992d16ca361c55596ce143dfaf1b07827c6ccc632?s=500&d=mm&r=g&t=1790821295",
+   "profile": "https://capitolnewsillinois.com/news/author/k-ellen/",
+   "website": "",
+   "match": [
+    "K Ellen Stackhouse"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "anne-marie-green-correspondent-48-hours-cbs-news-chicago",
+   "outlet": "cbs-news-chicago",
+   "name": "Anne-Marie Green Correspondent, \"48 Hours\"",
+   "role": "Journalist",
+   "photo": "https://assets3.cbsnewsstatic.com/hub/i/r/2025/01/23/fa6e8360-169d-4152-a2ef-9b47d7d1a3d9/thumbnail/600x600/f83cbf978937d08da12c28d712e318e2/headshot-600-anne-marie-green.jpg",
+   "profile": "https://www.cbsnews.com/team/anne-marie-green/",
+   "website": "",
+   "match": [
+    "Anne-Marie Green Correspondent, \"48 Hours\""
+   ],
+   "youtube": "",
+   "instagram": "https://instagram.com/cbsnews",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/CBSNews",
+   "x": "https://x.com/amgreencbs",
+   "linkedin": ""
+  },
+  {
+   "id": "gayle-king-co-host-cbs-mornings-cbs-news-chicago",
+   "outlet": "cbs-news-chicago",
+   "name": "Gayle King Co-host, \"CBS Mornings\"",
+   "role": "Journalist",
+   "photo": "https://assets1.cbsnewsstatic.com/hub/i/r/2024/05/17/d693e0bb-b38d-4ad5-870f-dd5853da02d8/thumbnail/600x600/cf64f19463be08e4d79cf3b47b9f2b25/headshot-600-gayle-king.jpg",
+   "profile": "https://www.cbsnews.com/team/gayle-king/",
+   "website": "",
+   "match": [
+    "Gayle King Co-host, \"CBS Mornings\""
+   ],
+   "youtube": "",
+   "instagram": "https://instagram.com/cbsnews",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/CBSNews",
+   "x": "https://x.com/GayleKing",
+   "linkedin": ""
+  },
+  {
+   "id": "james-brown-cbs-news-chicago",
+   "outlet": "cbs-news-chicago",
+   "name": "James Brown",
+   "role": "Correspondent",
+   "photo": "https://assets2.cbsnewsstatic.com/hub/i/r/2024/05/17/1f986d82-55f7-4350-ac1a-85438e507816/thumbnail/600x600/43aa9622f136c462b7f8b7a8739f0c15/headshot-600-james-brown.jpg",
+   "profile": "https://www.cbsnews.com/team/james-brown/",
+   "website": "",
+   "match": [
+    "James Brown"
+   ],
+   "youtube": "",
+   "instagram": "https://instagram.com/cbsnews",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/CBSNews",
+   "x": "https://x.com/jbsportscaster",
+   "linkedin": ""
+  },
+  {
+   "id": "jericka-duncan-cbs-news-chicago",
+   "outlet": "cbs-news-chicago",
+   "name": "Jericka Duncan",
+   "role": "Correspondent",
+   "photo": "https://assets2.cbsnewsstatic.com/hub/i/r/2024/12/04/b775fe62-3b8f-43bf-a8ba-8069773cf144/thumbnail/600x600/e422c4e6c5bbb183aad08adc3d8bdcf7/headshot-600-jericka-duncan.jpg",
+   "profile": "https://www.cbsnews.com/team/jericka-duncan/",
+   "website": "",
+   "match": [
+    "Jericka Duncan"
+   ],
+   "youtube": "",
+   "instagram": "https://instagram.com/cbsnews",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/CBSNews",
+   "x": "https://twitter.com/Jerickaduncan",
+   "linkedin": ""
+  },
+  {
+   "id": "nancy-giles-cbs-news-chicago",
+   "outlet": "cbs-news-chicago",
+   "name": "Nancy Giles",
+   "role": "",
+   "photo": "https://assets3.cbsnewsstatic.com/hub/i/r/2024/06/04/5354aa6b-23e0-403e-b610-3b1b690b353a/thumbnail/600x600/12d5db4bbdeafbcc700a0eb81a30166f/headshot-600-nancy-giles.jpg",
+   "profile": "https://www.cbsnews.com/team/nancy-giles/",
+   "website": "",
+   "match": [
+    "Nancy Giles"
+   ],
+   "youtube": "",
+   "instagram": "https://instagram.com/cbsnews",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/CBSNews",
+   "x": "https://x.com/nancygilesny",
+   "linkedin": ""
+  },
+  {
+   "id": "nate-burleson-co-host-cbs-mornings-cbs-news-chicago",
+   "outlet": "cbs-news-chicago",
+   "name": "Nate Burleson Co-host, \"CBS Mornings\"",
+   "role": "Host",
+   "photo": "https://assets2.cbsnewsstatic.com/hub/i/r/2024/05/17/83466065-6421-4045-96ab-f2a47e692e1b/thumbnail/600x600/946ebcdef2aa640838bd2a858974d505/headshot-600-nate-burleson.jpg",
+   "profile": "https://www.cbsnews.com/team/nate-burleson/",
+   "website": "",
+   "match": [
+    "Nate Burleson Co-host, \"CBS Mornings\""
+   ],
+   "youtube": "",
+   "instagram": "https://www.instagram.com/nateburleson",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/CBSNews",
+   "x": "https://twitter.com/nateburleson",
+   "linkedin": ""
+  },
+  {
+   "id": "kwame-opam-chicago-sun-times",
+   "outlet": "chicago-sun-times",
+   "name": "Kwame Opam",
+   "role": "Editor",
+   "photo": "https://cst.brightspotcdn.com/dims4/default/09cfa46/2147483647/strip/true/crop/512x292+0+110/resize/1461x834!/quality/90/?url=https%3A%2F%2Fchorus-production-cst-web.s3.us-east-1.amazonaws.com%2Fbrightspot%2Fb2%2F50%2Fa955b4f03d5969865cef05c96fac%2Fkwame-opam-01-0.jpg",
+   "profile": "https://chicago.suntimes.com/authors/kwame-opam",
+   "website": "",
+   "match": [
+    "Kwame Opam"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "lee-bey-chicago-sun-times",
+   "outlet": "chicago-sun-times",
+   "name": "Lee Bey",
+   "role": "Host",
+   "photo": "https://cst.brightspotcdn.com/dims4/default/1ab4c57/2147483647/strip/true/crop/512x292+0+110/resize/1461x834!/quality/90/?url=https%3A%2F%2Fchorus-production-cst-web.s3.us-east-1.amazonaws.com%2Fbrightspot%2Fb1%2F63%2F53c67215f309c1cb01b3d31c5648%2Funtitled-design-3-0.jpg",
+   "profile": "https://chicago.suntimes.com/authors/lee-bey",
+   "website": "",
+   "match": [
+    "Lee Bey"
+   ],
+   "youtube": "",
+   "instagram": "https://www.instagram.com/leebey",
+   "tiktok": "",
+   "facebook": "",
+   "x": "",
+   "linkedin": "https://www.linkedin.com/in/leebey"
+  },
+  {
+   "id": "anita-blanton-fox-32-chicago",
+   "outlet": "fox-32-chicago",
+   "name": "Anita Blanton",
+   "role": "Anchor",
+   "photo": "https://images.foxtv.com/static.fox32chicago.com/www.fox32chicago.com/content/uploads/2022/04/512/512/AnitaBlantonHeadshot_1.png?ve=1&tl=1",
+   "profile": "https://www.fox32chicago.com/person/b/anita-blanton",
+   "website": "",
+   "match": [
+    "Anita Blanton"
+   ],
+   "youtube": "",
+   "instagram": "http://instagram.com/AnitaBlantonLive",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/AnitaBlantonFOX32",
+   "x": "https://twitter.com/AnitaBlantonTV",
+   "linkedin": ""
+  },
+  {
+   "id": "ashleigh-jackson-fox-32-chicago",
+   "outlet": "fox-32-chicago",
+   "name": "Ashleigh Jackson",
+   "role": "Host",
+   "photo": "https://images.foxtv.com/static.fox32chicago.com/www.fox32chicago.com/content/uploads/2026/10/512/512/ashleigh-jackson.jpg?ve=1&tl=1",
+   "profile": "https://www.fox32chicago.com/person/j/ashleigh-jackson",
+   "website": "",
+   "match": [
+    "Ashleigh Jackson"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "brandon-pope-fox-32-chicago",
+   "outlet": "fox-32-chicago",
+   "name": "Brandon Pope",
+   "role": "Reporter",
+   "photo": "https://images.foxtv.com/static.fox32chicago.com/www.fox32chicago.com/content/uploads/2026/09/512/512/headshot_brandon-pope.png?ve=1&tl=1",
+   "profile": "https://www.fox32chicago.com/person/p/brandon-pope",
+   "website": "",
+   "match": [
+    "Brandon Pope"
+   ],
+   "youtube": "",
+   "instagram": "http://instagram.com/bpopetv",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/BpopeTV",
+   "linkedin": ""
+  },
+  {
+   "id": "brian-jackson-fox-32-chicago",
+   "outlet": "fox-32-chicago",
+   "name": "Brian Jackson",
+   "role": "Anchor",
+   "photo": "https://images.foxtv.com/static.fox32chicago.com/www.fox32chicago.com/content/uploads/2024/01/512/512/Brian-Web-Headshot-Final.jpg?ve=1&tl=1",
+   "profile": "https://www.fox32chicago.com/person/j/brian-jackson",
+   "website": "",
+   "match": [
+    "Brian Jackson"
+   ],
+   "youtube": "",
+   "instagram": "http://instagram.com/BrianJacksonTV",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/brianjacksontv",
+   "x": "https://twitter.com/BrianJacksonTV",
+   "linkedin": ""
+  },
+  {
+   "id": "terrence-lee-fox-32-chicago",
+   "outlet": "fox-32-chicago",
+   "name": "Terrence Lee",
+   "role": "Anchor",
+   "photo": "https://images.foxtv.com/static.fox32chicago.com/www.fox32chicago.com/content/uploads/2020/04/512/512/Terrence-Lee.png?ve=1&tl=1",
+   "profile": "https://www.fox32chicago.com/person/l/terrence-lee",
+   "website": "",
+   "match": [
+    "Terrence Lee"
+   ],
+   "youtube": "",
+   "instagram": "http://instagram.com/tleetv",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/TLeeTV",
+   "x": "https://twitter.com/TLeeOnTV",
+   "linkedin": ""
+  },
+  {
+   "id": "tia-ewing-fox-32-chicago",
+   "outlet": "fox-32-chicago",
+   "name": "Tia Ewing",
+   "role": "Reporter",
+   "photo": "https://images.foxtv.com/static.fox32chicago.com/www.fox32chicago.com/content/uploads/2019/08/512/512/Tia-Ewing.png?ve=1&tl=1",
+   "profile": "https://www.fox32chicago.com/person/e/tia-ewing",
+   "website": "",
+   "match": [
+    "Tia Ewing"
+   ],
+   "youtube": "",
+   "instagram": "http://instagram.com/tiaontv",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/TVNewsStar",
+   "x": "https://twitter.com/TIA_EWING",
+   "linkedin": ""
+  },
+  {
+   "id": "breanna-harris-kfvs12",
+   "outlet": "kfvs12",
+   "name": "Breanna Harris",
+   "role": "",
+   "photo": "https://gray-kfvs12-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2Ff4036b83-f776-403d-be11-6f1e1a948f7b.png?auth=e1ad83bd8c96b3d0766e65b6832ae77ab49c910914a99718f7398e16e82d33ae&width=1200&height=600&smart=true",
+   "profile": "https://www.kfvs12.com/authors/breanna-harris/",
+   "website": "",
+   "match": [
+    "Breanna Harris"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/Breanna-Harris-KFVS-103487005138519",
+   "x": "https://twitter.com/HarrisKfvs",
+   "linkedin": ""
+  },
+  {
+   "id": "caresse-jackman-kfvs12",
+   "outlet": "kfvs12",
+   "name": "Caresse Jackman",
+   "role": "Investigative Reporter",
+   "photo": "https://gray-kfvs12-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2Fc65f8ee4-257b-439d-9c69-6193dfc38bff.png?auth=4f3b844503b2158e2549549b51ea8ccd3f2685d371ab45eca17acfffb2755f9a&width=1200&height=600&smart=true",
+   "profile": "https://www.kfvs12.com/authors/Caresse-Jackman/",
+   "website": "",
+   "match": [
+    "Caresse Jackman"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/caressejackmanWSMV",
+   "x": "https://www.x.com/CaresseJ",
+   "linkedin": ""
+  },
+  {
+   "id": "jasmine-wiley-kfvs12",
+   "outlet": "kfvs12",
+   "name": "Jasmine Wiley",
+   "role": "",
+   "photo": "https://gray-kfvs12-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2FPR3RV6PWC5HODIDDNU76GVI3MI.png?auth=50896fc5352dec3c36616eed968a6c17f020198d893832c84e9088535227ddf3&width=1200&height=600&smart=true",
+   "profile": "https://www.kfvs12.com/authors/jasmine-wiley/",
+   "website": "",
+   "match": [
+    "Jasmine Wiley"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/kfvs12",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "tisha-powell-kfvs12",
+   "outlet": "kfvs12",
+   "name": "Tisha Powell",
+   "role": "Anchor",
+   "photo": "https://gray-kfvs12-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F2bc8335b-6d55-4f9f-a03d-48ac5f19f109.png?auth=0cd5c2a31cb9080ef0ded68123adfba72be9814427cdd0a420d24f56f4b486c3&width=1200&height=600&smart=true",
+   "profile": "https://www.kfvs12.com/authors/tisha-powell-itv/",
+   "website": "",
+   "match": [
+    "Tisha Powell"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/kfvs12",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "waylin-walls-parker-kfvs12",
+   "outlet": "kfvs12",
+   "name": "Waylin Walls-Parker",
+   "role": "",
+   "photo": "https://gray-kfvs12-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2FO2WXCOOT6RASRDGUGTGMG5DQIM.png?auth=3f282a0f1e454d53870939fae0433ab52926e3d143df487e48b5e2185bc1dce6&width=1200&height=600&smart=true",
+   "profile": "https://www.kfvs12.com/authors/waylin-walls-parker/",
+   "website": "",
+   "match": [
+    "Waylin Walls-Parker"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/kfvs12",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "makenzie-williams-krcu-public-radio",
+   "outlet": "krcu-public-radio",
+   "name": "Makenzie Williams",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/72bbda4/2147483647/strip/true/crop/245x129+0+53/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Ffb%2F99%2Fa1c90ece427787d17c20dff08e44%2Fmakenzie-williams-headshot-semo-athletics.jpg",
+   "profile": "https://www.krcu.org/people/makenzie-williams",
+   "website": "",
+   "match": [
+    "Makenzie Williams"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/KRCUFM",
+   "linkedin": ""
+  },
+  {
+   "id": "aliyah-veal-mississippi-free-press",
+   "outlet": "mississippi-free-press",
+   "name": "Aliyah Veal",
+   "role": "Writer",
+   "photo": "https://i0.wp.com/www.mississippifreepress.org/wp-content/uploads/2022/01/Aliyah-Veal-2022_sq.jpg?fit=720%2C720&ssl=1",
+   "profile": "https://www.mississippifreepress.org/author/aliyah-veal/",
+   "website": "",
+   "match": [
+    "Aliyah Veal"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "ben-singson-npr-illinois",
+   "outlet": "npr-illinois",
+   "name": "Ben Singson",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/2560308/2147483647/strip/true/crop/1333x700+0+248/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Ff8%2F81%2F0f3a4d844b599df8f2b4fdc707f4%2Fben-singson-midshot-clay-stalton-e4ff7e20-cb35-4562-a8b8-fb3b8899b822-1.jpeg",
+   "profile": "https://www.nprillinois.org/people/ben-singson",
+   "website": "",
+   "match": [
+    "Ben Singson"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ILPubBroadcasting",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "beverly-holmes-npr-illinois",
+   "outlet": "npr-illinois",
+   "name": "Beverly Holmes",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/4f727c7/2147483647/strip/true/crop/114x60+0+43/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Flegacy%2Fsites%2Fwuis%2Ffiles%2F201402%2FHolmes-Beverly.jpg",
+   "profile": "https://www.nprillinois.org/people/beverly-holmes",
+   "website": "",
+   "match": [
+    "Beverly Holmes"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ILPubBroadcasting",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "christina-shutt-npr-illinois",
+   "outlet": "npr-illinois",
+   "name": "Christina Shutt",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/9c116ba/2147483647/strip/true/crop/300x158+0+52/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fb2%2F08%2F7d04f6754199bebaab61c41fecd3%2Fshutt-headshot.jpg",
+   "profile": "https://www.nprillinois.org/people/christina-shutt",
+   "website": "",
+   "match": [
+    "Christina Shutt"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ILPubBroadcasting",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "deanie-brown-npr-illinois",
+   "outlet": "npr-illinois",
+   "name": "Deanie Brown",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/489c2ca/2147483647/strip/true/crop/2400x1260+0+5/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Flegacy%2Fsites%2Fwuis%2Ffiles%2F201809%2FBrown-2400x1600.png",
+   "profile": "https://www.nprillinois.org/people/deanie-brown",
+   "website": "",
+   "match": [
+    "Deanie Brown"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ILPubBroadcasting",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "judah-white-npr-illinois",
+   "outlet": "npr-illinois",
+   "name": "Judah White",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/fe69a21/2147483647/strip/true/crop/2048x1075+0+0/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fb3%2F75%2F1319ec254d9bb7d8ea218e3f333b%2Fjudah-white.jpg",
+   "profile": "https://www.nprillinois.org/people/judah-white",
+   "website": "",
+   "match": [
+    "Judah White"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ILPubBroadcasting",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "kelly-glass-npr-illinois",
+   "outlet": "npr-illinois",
+   "name": "Kelly Glass",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/fc0e8b2/2147483647/strip/true/crop/1084x569+0+253/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fd3%2F0e%2F56a153cc49468a4bfd47a20eb36c%2Fglass.png",
+   "profile": "https://www.nprillinois.org/people/kelly-glass",
+   "website": "",
+   "match": [
+    "Kelly Glass"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ILPubBroadcasting",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "mia-woods-npr-illinois",
+   "outlet": "npr-illinois",
+   "name": "Mia Woods",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/5a183f6/2147483647/strip/true/crop/2400x1260+0+0/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Flegacy%2Fsites%2Fwuis%2Ffiles%2F201803%2Fwoods__mia_2400x1350.png",
+   "profile": "https://www.nprillinois.org/people/mia-woods",
+   "website": "",
+   "match": [
+    "Mia Woods"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ILPubBroadcasting",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "teresa-jones-npr-illinois",
+   "outlet": "npr-illinois",
+   "name": "Teresa Jones",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/93aa159/2147483647/strip/true/crop/173x91+0+64/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F20%2F1b%2F828f9f514215a79426cdba55fa40%2Fjones.png",
+   "profile": "https://www.nprillinois.org/people/teresa-jones",
+   "website": "",
+   "match": [
+    "Teresa Jones"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ILPubBroadcasting",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "andrea-y-henderson-st-louis-public-radio",
+   "outlet": "st-louis-public-radio",
+   "name": "Andrea Y. Henderson",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/38bd134/2147483647/strip/true/crop/998x524+0+237/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Flegacy%2Fsites%2Fkwmu%2Ffiles%2F201903%2Fahenderson_02-web.jpg",
+   "profile": "https://www.stlpr.org/people/andrea-henderson",
+   "website": "",
+   "match": [
+    "Andrea Y. Henderson"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/drebjournalist",
+   "linkedin": ""
+  },
+  {
+   "id": "chad-davis-st-louis-public-radio",
+   "outlet": "st-louis-public-radio",
+   "name": "Chad Davis",
+   "role": "Reporter",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/043ee37/2147483647/strip/true/crop/725x381+0+186/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Ff0%2F96%2F4359cb1443f1aac29ac04fe8b7f5%2Fchad-davis-07032024-staff-headshot-01-3x4.jpg",
+   "profile": "https://www.stlpr.org/people/chad-davis",
+   "website": "",
+   "match": [
+    "Chad Davis"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/iamcdavis",
+   "linkedin": ""
+  },
+  {
+   "id": "fontella-bradford-st-louis-public-radio",
+   "outlet": "st-louis-public-radio",
+   "name": "Fontella Bradford",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/69ed8cf/2147483647/strip/true/crop/950x499+0+184/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F11%2F7b%2F9576bac64324a94ad8d25735521f%2Fbradford-fontella-370-0214-rt-retouched-cropped.png",
+   "profile": "https://www.stlpr.org/people/fontella-bradford",
+   "website": "",
+   "match": [
+    "Fontella Bradford"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "lacretia-wimbley-st-louis-public-radio",
+   "outlet": "st-louis-public-radio",
+   "name": "Lacretia Wimbley",
+   "role": "Reporter",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/1a47f30/2147483647/strip/true/crop/2400x1260+0+586/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fee%2F33%2F65681572482c844ac5bc7d4122d8%2F110123-bm-lacretia-1.jpg",
+   "profile": "https://www.stlpr.org/people/lacretia-wimbley",
+   "website": "",
+   "match": [
+    "Lacretia Wimbley"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "marissanne-lewis-thompson-st-louis-public-radio",
+   "outlet": "st-louis-public-radio",
+   "name": "Marissanne Lewis-Thompson",
+   "role": "",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/58357df/2147483647/strip/true/crop/1500x788+0+543/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Flegacy%2Fsites%2Fkwmu%2Ffiles%2F201806%2Fmlewis-thompson_01-web.jpg",
+   "profile": "https://www.stlpr.org/people/marissanne-lewis-thompson",
+   "website": "",
+   "match": [
+    "Marissanne Lewis-Thompson"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/Marissanne2011",
+   "linkedin": ""
+  },
+  {
+   "id": "miya-norfleet-st-louis-public-radio",
+   "outlet": "st-louis-public-radio",
+   "name": "Miya Norfleet",
+   "role": "Producer",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/65ddbf3/2147483647/strip/true/crop/2000x1050+0+0/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F5b%2F2b%2F2e53564d4ebaa890dac7f329ac9a%2F07222025-miya-norfleet-staff-headshot-04.jpg",
+   "profile": "https://www.stlpr.org/people/miya-norfleet",
+   "website": "",
+   "match": [
+    "Miya Norfleet"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/MiyaNorfleet",
+   "linkedin": ""
+  },
+  {
+   "id": "alden-loury-wbez-chicago",
+   "outlet": "wbez-chicago",
+   "name": "Alden Loury",
+   "role": "Editor",
+   "photo": "https://cst.brightspotcdn.com/dims4/default/74334ad/2147483647/strip/true/crop/800x457+0+172/resize/1461x834!/quality/90/?url=https%3A%2F%2Fchorus-production-cst-web.s3.us-east-1.amazonaws.com%2Fbrightspot%2F3f%2F8e%2Ff2d407944fb3be0016c5239c9232%2Falden-loury.jpeg",
+   "profile": "https://www.wbez.org/author/alden-loury",
+   "website": "",
+   "match": [
+    "Alden Loury"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/AldenLoury",
+   "linkedin": ""
+  },
+  {
+   "id": "arionne-nettles-wbez-chicago",
+   "outlet": "wbez-chicago",
+   "name": "Arionne Nettles",
+   "role": "Editor",
+   "photo": "https://cst.brightspotcdn.com/dims4/default/af31394/2147483647/strip/true/crop/6720x3836+0+0/resize/1461x834!/quality/90/?url=https%3A%2F%2Fchorus-production-cst-web.s3.us-east-1.amazonaws.com%2Fbrightspot%2F87%2F6a%2F945dd10b4252a24dbec2daf36297%2Farionne-nettles-headshot.jpg",
+   "profile": "https://www.wbez.org/author/arionne-nettles",
+   "website": "",
+   "match": [
+    "Arionne Nettles"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "cianna-greaves-wbez-chicago",
+   "outlet": "wbez-chicago",
+   "name": "Cianna Greaves",
+   "role": "Producer",
+   "photo": "https://cst.brightspotcdn.com/dims4/default/b2bd823/2147483647/strip/true/crop/512x292+0+110/resize/1461x834!/quality/90/?url=https%3A%2F%2Fchorus-production-cst-web.s3.us-east-1.amazonaws.com%2Fbrightspot%2F81%2F5d%2F12a208754ad0a3f28189b1a00f07%2Fcg-cst-1-0.jpg",
+   "profile": "https://www.wbez.org/author/cianna-greaves",
+   "website": "",
+   "match": [
+    "Cianna Greaves"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/CiciGreaves",
+   "linkedin": ""
+  },
+  {
+   "id": "erin-allen-wbez-chicago",
+   "outlet": "wbez-chicago",
+   "name": "Erin Allen",
+   "role": "Host",
+   "photo": "https://cst.brightspotcdn.com/dims4/default/284f0fb/2147483647/strip/true/crop/800x457+0+119/resize/1461x834!/quality/90/?url=https%3A%2F%2Fchorus-production-cst-web.s3.us-east-1.amazonaws.com%2Fbrightspot%2Fed%2F30%2Fd296ca814c3ea5d8018149e1fed4%2Ferin.jpeg",
+   "profile": "https://www.wbez.org/author/erin-allen",
+   "website": "",
+   "match": [
+    "Erin Allen"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/erinallen_show",
+   "linkedin": ""
+  },
+  {
+   "id": "lisa-kurian-phillip-wbez-chicago",
+   "outlet": "wbez-chicago",
+   "name": "Lisa Kurian Phillip",
+   "role": "Reporter",
+   "photo": "https://cst.brightspotcdn.com/dims4/default/b8350d3/2147483647/strip/true/crop/800x457+0+172/resize/1461x834!/quality/90/?url=https%3A%2F%2Fchorus-production-cst-web.s3.us-east-1.amazonaws.com%2Fbrightspot%2F6d%2F60%2F5ecf416a414abe7661f3829b7401%2Flisa-kurian-philip.jpeg",
+   "profile": "https://www.wbez.org/author/lisa-kurian-philip",
+   "website": "",
+   "match": [
+    "Lisa Kurian Phillip"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/laphilip",
+   "linkedin": ""
+  },
+  {
+   "id": "sasha-ann-simons-wbez-chicago",
+   "outlet": "wbez-chicago",
+   "name": "Sasha-Ann Simons",
+   "role": "Host",
+   "photo": "https://cst.brightspotcdn.com/dims4/default/db6177a/2147483647/strip/true/crop/1080x617+0+173/resize/1461x834!/quality/90/?url=https%3A%2F%2Fchorus-production-cst-web.s3.us-east-1.amazonaws.com%2Fbrightspot%2F46%2Ff5%2F620d48904545a504f190600535da%2Funtitled-1.png",
+   "profile": "https://www.wbez.org/author/sasha-ann-simons",
+   "website": "",
+   "match": [
+    "Sasha-Ann Simons"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "",
+   "x": "https://twitter.com/SashaAnnSimons",
+   "linkedin": ""
+  },
+  {
+   "id": "terrance-jones-wglt-89-1-fm",
+   "outlet": "wglt-89-1-fm",
+   "name": "Terrance Jones",
+   "role": "Host",
+   "photo": "https://npr.brightspotcdn.com/dims4/default/4201e56/2147483647/strip/true/crop/1212x636+0+512/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Flegacy%2Fsites%2Fwglt%2Ffiles%2F202012%2FTerranceJOnes.jpg",
+   "profile": "https://www.wglt.org/people/terrance-jones",
+   "website": "",
+   "match": [
+    "Terrance Jones"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ILPubBroadcasting",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "a-darius-mccormick-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "A'Darius McCormick",
+   "role": "Reporter",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F78e35f31-b3b5-461f-a774-cd14df7f5b40.jpg?auth=9d3e3030ccf168ed8db88957832e47a14ddc93b0108d06231ceb999e203370f0&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/A'Darius-McCormick/",
+   "website": "",
+   "match": [
+    "A'Darius McCormick"
+   ],
+   "youtube": "",
+   "instagram": "https://www.instagram.com/adariusthereporter",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/adariusmccormick33",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "ashley-garner-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Ashley Garner",
+   "role": "Anchor",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F25b1857b-3572-41aa-89e8-0d250576cc6e.jpg?auth=cbeb1fbf06dc52e45118c05cf2a9bfe7afa68f75655bf4434f24932af5b746df&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/ashley-garner/",
+   "website": "",
+   "match": [
+    "Ashley Garner"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ashleygarnerwlbt",
+   "x": "https://www.x.com/angarner",
+   "linkedin": ""
+  },
+  {
+   "id": "caresse-jackman-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Caresse Jackman",
+   "role": "Investigative Reporter",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2Fc65f8ee4-257b-439d-9c69-6193dfc38bff.png?auth=4f3b844503b2158e2549549b51ea8ccd3f2685d371ab45eca17acfffb2755f9a&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/Caresse-Jackman/",
+   "website": "",
+   "match": [
+    "Caresse Jackman"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/caressejackmanWSMV",
+   "x": "https://www.x.com/CaresseJ",
+   "linkedin": ""
+  },
+  {
+   "id": "christopher-fields-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Christopher Fields",
+   "role": "Reporter",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F7d7ffc0c-ca16-4257-9ba4-234f44684b12.jpg?auth=df9f107a86eeaaae74874ea36f5f09757bab5c902bd7b6a6a440398e30b0eb8a&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/chris-fields/",
+   "website": "",
+   "match": [
+    "Christopher Fields"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/ChrisFieldsTV",
+   "x": "https://www.x.com/ChrisFieldsWLBT",
+   "linkedin": ""
+  },
+  {
+   "id": "darrell-brown-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Darrell Brown",
+   "role": "Producer",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F556c8563-3ee5-4333-9a4c-c01ffba00c13.jpg?auth=fcca2b6b1f30cebcc7b2587cab59bf0e59363e796e79eebb788254ce18772a27&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/darrellbrown/",
+   "website": "",
+   "match": [
+    "Darrell Brown"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WLBT3",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "howard-ballou-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Howard Ballou",
+   "role": "Anchor",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F32424543-25ff-442f-ab6b-8cc2161ba683.jpg?auth=cae047fed5ef46184af4b77a0b6f209e592f224a72d79ee30fe3db71207461d9&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/howard-ballou/",
+   "website": "",
+   "match": [
+    "Howard Ballou"
+   ],
+   "youtube": "",
+   "instagram": "https://www.instagram.com/HowardBallou",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WLBT3",
+   "x": "https://www.x.com/HowardBallou",
+   "linkedin": ""
+  },
+  {
+   "id": "keith-honore-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Keith Honore",
+   "role": "",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2Ffa44aa08-8b0a-4ce0-a99a-3b49a5b4bd3f.jpg?auth=de3c003230d8b8a907f9331648a933de8b6a48feb9b4bef148723028f97a44cf&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/Keith-Honore/",
+   "website": "",
+   "match": [
+    "Keith Honore"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WLBT3",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "kennedi-drake-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Kennedi Drake",
+   "role": "Multimedia Journalist",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F6G32NDQHA5DKBF5UUQFMUISUOU.png?auth=6986e863f9ab4b6bf7d22102c02f3eb96c9094710d0296604ac86b8bc6670295&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/kennedi_drake/",
+   "website": "",
+   "match": [
+    "Kennedi Drake"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WLBT3",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "maggie-wade-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Maggie Wade",
+   "role": "Anchor",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F3b8d8da6-44d0-4c46-8c38-562780e0d7d0.jpg?auth=f825e2008e81db4d6786a390510aa21f0897467b83b02cffd1c8baf725136391&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/maggie-wade/",
+   "website": "",
+   "match": [
+    "Maggie Wade"
+   ],
+   "youtube": "",
+   "instagram": "https://www.instagram.com/maggiewade3",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WLBT3",
+   "x": "https://www.x.com/MaggieWade",
+   "linkedin": ""
+  },
+  {
+   "id": "patrice-clark-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Patrice Clark",
+   "role": "Anchor",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fs3.amazonaws.com%2Farc-authors%2Fgray%2Faf3b324a-6f31-4369-86df-e7af24142728.jpg?auth=6f378424dbdee6f07fcb5f70d1c21cd92eb8220d061abc0d8ac1efad2a77de7c&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/patrice-clark/",
+   "website": "",
+   "match": [
+    "Patrice Clark"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/Patrice-Clark-WLBT-News-409475555878283",
+   "x": "https://www.x.com/pclarkWLBT",
+   "linkedin": ""
+  },
+  {
+   "id": "quentin-smith-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Quentin Smith",
+   "role": "Reporter",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2Fa9b0e4c3-3d58-4085-a7df-1921192cf0c7.jpg?auth=9b048217c0685ea73175090fb9ab8e4ecfda9955eeb44fe248e17b400d6ed0ba&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/quentin-smith/",
+   "website": "",
+   "match": [
+    "Quentin Smith"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WLBT3",
+   "x": "https://www.x.com/Q_Smith_",
+   "linkedin": ""
+  },
+  {
+   "id": "roslyn-anderson-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Roslyn Anderson",
+   "role": "Reporter",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fraycom%2F47117a8e-7865-4c9b-85b1-d46f6008df70.png?auth=cdb3700631f6c071aefa31de48759e9a7f738d9083ed1308a503b83500190b58&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/roslyn-anderson/",
+   "website": "",
+   "match": [
+    "Roslyn Anderson"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/roslynandersonwlbt",
+   "x": "https://www.x.com/WLBTRoslyn",
+   "linkedin": ""
+  },
+  {
+   "id": "tisha-powell-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Tisha Powell",
+   "role": "Anchor",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F2bc8335b-6d55-4f9f-a03d-48ac5f19f109.png?auth=0cd5c2a31cb9080ef0ded68123adfba72be9814427cdd0a420d24f56f4b486c3&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/tisha-powell-itv/",
+   "website": "",
+   "match": [
+    "Tisha Powell"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WLBT3",
+   "x": "",
+   "linkedin": ""
+  },
+  {
+   "id": "verlecia-gavin-wlbt-3",
+   "outlet": "wlbt-3",
+   "name": "Verlecia Gavin",
+   "role": "Reporter",
+   "photo": "https://gray-wlbt-prod.gtv-cdn.com/resizer/v2/https%3A%2F%2Fauthor-service-images-prod-us-east-1.publishing.aws.arc.pub%2Fgray%2F0f7edde7-6d52-4683-9104-fe32eb225299.jpg?auth=12e0b9313d7c14e339610d7094bf30d91cf1057c831b19e92d205019eef62181&width=1200&height=600&smart=true",
+   "profile": "https://www.wlbt.com/authors/VerleciaGavin/",
+   "website": "",
+   "match": [
+    "Verlecia Gavin"
+   ],
+   "youtube": "",
+   "instagram": "",
+   "tiktok": "",
+   "facebook": "https://www.facebook.com/WLBT3",
+   "x": "",
+   "linkedin": ""
+  }
+ ]
+}
+]
+}
