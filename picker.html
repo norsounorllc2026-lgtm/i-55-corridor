@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>I-55 Corridor Picker</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Overpass+Mono:wght@400&display=swap">
+<style>
+/* Layout: owner-only tool. Newsroom list on the left, that newsroom's professionals on the right, a sticky bar with the featured count and the export buttons. */
+:root {
+  --bg: #0f171e; --panel: #131d25; --panel-2: #1a2630; --line: #2a3b48;
+  --ink: #edf1f4; --muted: #8d9daa; --signal: #f3a83a; --local: #63c6c0; --sign: #0e6b46; --good: #4cc38a;
+  --display: "Overpass", "Arial Narrow", system-ui, sans-serif;
+  --body: "Overpass", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Overpass Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--body); }
+button, input, select { font: inherit; color: inherit; }
+a { color: var(--signal); }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.app { display: grid; grid-template-rows: auto 1fr auto; height: 100%; }
+header { padding-block: 16px 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+h1 { margin: 0; font: 800 22px/1 var(--display); }
+.sub { color: var(--muted); font-size: 13px; }
+header .grow { flex: 1; min-width: 200px; }
+.main { display: grid; grid-template-columns: 300px minmax(0, 1fr); min-height: 0; }
+.list { border-right: 1px solid var(--line); overflow-y: auto; padding: 10px 14px 10px 10px; display: grid; gap: 4px; align-content: start; }
+.list input { width: 100%; padding: 8px 10px; border-radius: 4px; border: 1px solid var(--line); background: var(--panel-2); margin-bottom: 6px; }
+.state { font: 600 11px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--signal); padding: 12px 6px 4px; }
+.o-btn { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 10px; border-radius: 4px; border: 1px solid transparent; background: none; cursor: pointer; }
+.o-btn:hover { background: var(--panel-2); }
+.o-btn[aria-current="true"] { background: var(--panel-2); border-color: var(--signal); }
+.o-btn .n { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pill { font: 600 11px/1 var(--mono); padding: 3px 6px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); color: var(--muted); }
+.pill.on { background: var(--sign); border-color: var(--good); color: #fff; }
+.detail { overflow-y: auto; padding-block: 18px 32px; padding-left: 20px; padding-right: max(20px, env(safe-area-inset-right, 0px)); display: grid; gap: 16px; align-content: start; }
+.d-head h2 { margin: 0; font: 800 24px/1.15 var(--display); }
+.d-head .meta { color: var(--muted); font-size: 13px; }
+.tools { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; font-size: 14px; }
+.tools label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.card { border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 12px; display: grid; gap: 10px; cursor: pointer; }
+.card.chosen { border-color: var(--good); background: #15282a; }
+.card-top { display: flex; gap: 10px; align-items: center; }
+.ava { width: 46px; height: 46px; border-radius: 50%; background: var(--sign); flex: none; overflow: hidden; display: grid; place-items: center; font: 800 16px var(--display); }
+.ava img { width: 100%; height: 100%; object-fit: cover; }
+.card .nm { font: 800 16px/1.15 var(--display); }
+.card .rl { font-size: 12px; color: var(--muted); }
+.card input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--good); margin-left: auto; flex: none; }
+.socials { display: flex; flex-wrap: wrap; gap: 4px; }
+.socials a { font-size: 12px; text-decoration: none; padding: 3px 8px; border-radius: 999px; background: var(--panel-2); border: 1px solid var(--line); color: var(--ink); }
+.empty { border: 1px dashed var(--line); border-radius: 6px; padding: 14px; color: var(--muted); font-size: 14px; }
+form.add { border: 1px solid var(--line); border-radius: 6px; padding: 14px; display: grid; gap: 10px; background: var(--panel); }
+form.add h3 { margin: 0; font: 800 15px var(--display); }
+form.add .row { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+form.add label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
+form.add input { width: 100%; min-width: 0; padding: 7px 9px; border-radius: 4px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); font-size: 14px; }
+.btn { padding: 9px 14px; border-radius: 4px; border: 1px solid var(--line); background: var(--panel-2); cursor: pointer; font: 600 13px var(--display); letter-spacing: .04em; }
+.btn.primary { background: var(--signal); color: #10171d; border-color: var(--signal); }
+.btn:hover { border-color: var(--signal); }
+footer { border-top: 1px solid var(--line); padding-block: 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--panel); }
+footer .count { font: 800 16px var(--display); margin-right: auto; }
+.toast { color: var(--good); font-size: 13px; }
+@media (max-width: 720px) {
+  .main { grid-template-columns: 1fr; grid-template-rows: 38% 1fr; }
+  .list { border-right: 0; border-bottom: 1px solid var(--line); }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="grow">
+      <h1>I-55 Corridor Picker</h1>
+      <div class="sub" id="sub">Choose the professionals each newsroom's panel will feature.</div>
+    </div>
+  </header>
+  <div class="main">
+    <nav class="list" id="list" aria-label="Newsrooms">
+      <input id="search" type="search" placeholder="Find a newsroom or person" aria-label="Find a newsroom or person">
+    </nav>
+    <section class="detail" id="detail"></section>
+  </div>
+  <footer>
+    <span class="count" id="count">0 featured</span>
+    <span class="toast" id="toast" aria-live="polite"></span>
+    <button class="btn" id="download" type="button">Download people.json</button>
+    <button class="btn primary" id="copy" type="button">Copy people.json</button>
+    <a class="btn" id="edit" href="#" target="_blank" rel="noopener">Open people.json on GitHub</a>
+  </footer>
+</div>
+<script>
+(async function () {
+  const get = async (n, d) => { try { const r = await fetch("data/" + n, { cache: "no-cache" }); if (!r.ok) throw 0; return await r.json(); } catch (e) { return d; } };
+  const [outlets, roster, peopleFile] = await Promise.all([get("outlets.json", []), get("roster.json", {}), get("people.json", { people: [] })]);
+  const SOC = [["youtube", "YouTube"], ["instagram", "Instagram"], ["tiktok", "TikTok"], ["facebook", "Facebook"], ["x", "X"], ["linkedin", "LinkedIn"]];
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const STATES = { LA: "Louisiana", MS: "Mississippi", TN: "Tennessee", MO: "Missouri", IL: "Illinois", AR: "Arkansas" };
+
+  /* chosen people, keyed by id; starts from people.json, then any unsaved draft in this browser */
+  let chosen = {};
+  (peopleFile.people || []).forEach(p => { chosen[p.id] = p; });
+  try { const d = JSON.parse(localStorage.getItem("i55-picker-draft") || "null"); if (d && typeof d === "object") chosen = d; } catch (e) { }
+  const save = () => { try { localStorage.setItem("i55-picker-draft", JSON.stringify(chosen)); } catch (e) { } render(); };
+
+  /* GitHub edit link, worked out from the GitHub Pages address */
+  const host = location.hostname.match(/^([\w-]+)\.github\.io$/);
+  const repo = location.pathname.split("/").filter(Boolean)[0] || "i-55-corridor";
+  const edit = document.getElementById("edit");
+  if (host) edit.href = `https://github.com/${host[1]}/${repo}/edit/main/data/people.json`; else edit.hidden = true;
+
+  let current = outlets[0] && outlets[0].id, onlyPosters = true, query = "";
+  const rosterOf = id => (roster[id] && roster[id].people) || [];
+  const chosenAt = id => Object.values(chosen).filter(p => p.outlet === id);
+  const toEntry = (p, outletId) => {
+    const e = { id: p.key || slug(p.name + "-" + outletId), outlet: outletId, name: p.name, role: p.role || "", photo: p.photo || "", profile: p.profile || "", website: p.website || "", match: [p.name] };
+    SOC.forEach(([k]) => { e[k] = p[k] || ""; });
+    return e;
+  };
+
+  function renderList() {
+    const list = document.getElementById("list");
+    list.querySelectorAll(".state, .o-btn").forEach(n => n.remove());
+    const q = query.toLowerCase();
+    let lastState = "";
+    outlets.forEach(o => {
+      const people = rosterOf(o.id);
+      if (q && !o.name.toLowerCase().includes(q) && !o.market.toLowerCase().includes(q) && !people.some(p => p.name.toLowerCase().includes(q))) return;
+      const st = STATES[o.market.slice(-2)] || "";
+      if (st !== lastState) { const h = document.createElement("div"); h.className = "state"; h.textContent = st; list.appendChild(h); lastState = st; }
+      const b = document.createElement("button"); b.type = "button"; b.className = "o-btn"; b.setAttribute("aria-current", String(o.id === current));
+      const n = chosenAt(o.id).length, posters = people.filter(p => p.posts).length;
+      b.innerHTML = `<span class="n">${esc(o.name)}</span><span class="pill" title="People who post on their own">${posters}</span>${n ? `<span class="pill on" title="Featured">${n} ✓</span>` : ""}`;
+      b.addEventListener("click", () => { current = o.id; render(); });
+      list.appendChild(b);
+    });
+  }
+
+  function renderDetail() {
+    const o = outlets.find(x => x.id === current); const el = document.getElementById("detail");
+    if (!o) { el.innerHTML = ""; return; }
+    const r = roster[o.id];
+    const all = rosterOf(o.id);
+    const shown = all.filter(p => (!onlyPosters || p.posts) && (!query || p.name.toLowerCase().includes(query.toLowerCase()) || o.name.toLowerCase().includes(query.toLowerCase())));
+    const extra = chosenAt(o.id).filter(c => !all.some(p => (p.key || slug(p.name + "-" + o.id)) === c.id));
+    const card = (p, isExtra) => {
+      const e = isExtra ? p : toEntry(p, o.id); const on = !!chosen[e.id];
+      const soc = SOC.filter(([k]) => e[k]).map(([k, l]) => `<a href="${esc(e[k])}" target="_blank" rel="noopener">${l}</a>`).join("");
+      return `<div class="card ${on ? "chosen" : ""}" data-id="${esc(e.id)}" data-extra="${isExtra ? 1 : 0}">
+        <div class="card-top"><div class="ava">${e.photo ? `<img alt="" src="${esc(e.photo)}">` : esc(e.name.split(" ").map(w => w[0]).slice(0, 2).join(""))}</div>
+          <div><div class="nm">${esc(e.name)}</div><div class="rl">${esc(e.role || "")}</div></div>
+          <input type="checkbox" ${on ? "checked" : ""} aria-label="Feature ${esc(e.name)}"></div>
+        <div class="socials">${e.profile ? `<a href="${esc(e.profile)}" target="_blank" rel="noopener">Bio page</a>` : ""}${soc || `<span class="rl">No personal accounts found</span>`}</div>
+      </div>`;
+    };
+    el.innerHTML = `
+      <div class="d-head"><h2>${esc(o.name)}</h2>
+        <div class="meta">${esc(o.kind)} · ${esc(o.market)}${r ? ` · roster checked ${esc(r.checked || "")}${r.team_pages && r.team_pages[0] ? ` from <a href="${esc(r.team_pages[0])}" target="_blank" rel="noopener">their team page</a>` : ""}` : ""}</div></div>
+      <div class="tools"><label><input type="checkbox" id="only" ${onlyPosters ? "checked" : ""}> Only people who post on their own</label>
+        <span class="rl">${all.length} found, ${all.filter(p => p.posts).length} with their own accounts</span></div>
+      ${shown.length || extra.length ? `<div class="grid">${shown.map(p => card(p, false)).join("")}${extra.map(p => card(p, true)).join("")}</div>`
+        : `<div class="empty">${r ? (all.length ? "No one here has personal accounts linked on their bio page. Turn off the filter to see everyone, or add someone below." : "The roster finder couldn't read a team page on this newsroom's site. Add people below.") : "This newsroom hasn't been scanned yet. Run “Build newsroom rosters” in the repository's Actions tab, or add people below."}</div>`}
+      <form class="add" id="add"><h3>Add someone by hand</h3>
+        <div class="row">
+          <label>Name<input name="name" required></label><label>Role<input name="role" placeholder="Anchor, reporter, host…"></label>
+          <label>Bio or author page<input name="profile" type="url" placeholder="https://"></label><label>Photo link<input name="photo" type="url" placeholder="https://"></label>
+          ${SOC.map(([k, l]) => `<label>${l}<input name="${k}" type="url" placeholder="https://"></label>`).join("")}
+          <label>Personal website<input name="website" type="url" placeholder="https://"></label>
+        </div>
+        <div><button class="btn primary" type="submit">Add and feature</button></div>
+      </form>`;
+    el.querySelector("#only").addEventListener("change", e => { onlyPosters = e.target.checked; renderDetail(); });
+    el.querySelectorAll(".card").forEach(c => c.addEventListener("click", e => {
+      if (e.target.closest("a")) return;
+      const id = c.dataset.id;
+      if (chosen[id]) delete chosen[id];
+      else { const p = all.find(p => (p.key || slug(p.name + "-" + o.id)) === id); if (p) chosen[id] = toEntry(p, o.id); }
+      save();
+    }));
+    el.querySelector("#add").addEventListener("submit", e => {
+      e.preventDefault(); const f = new FormData(e.target); const name = (f.get("name") || "").trim(); if (!name) return;
+      const p = { name }; ["role", "profile", "photo", "website", ...SOC.map(s => s[0])].forEach(k => { p[k] = (f.get(k) || "").trim(); });
+      const entry = toEntry(p, o.id); chosen[entry.id] = entry; save();
+    });
+  }
+
+  function render() {
+    const n = Object.keys(chosen).length;
+    document.getElementById("count").textContent = `${n} featured`;
+    renderList(); renderDetail();
+  }
+  const output = () => JSON.stringify({ people: Object.values(chosen).sort((a, b) => a.outlet.localeCompare(b.outlet) || a.name.localeCompare(b.name)) }, null, 1) + "\n";
+  const toast = t => { const el = document.getElementById("toast"); el.textContent = t; setTimeout(() => { el.textContent = ""; }, 3500); };
+  document.getElementById("copy").addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(output()); toast("Copied. Paste it over everything in people.json and commit."); }
+    catch (e) { toast("Copy was blocked. Use Download instead."); }
+  });
+  document.getElementById("download").addEventListener("click", () => {
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([output()], { type: "application/json" })); a.download = "people.json"; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000); toast("Downloaded. Upload it to the data folder on GitHub.");
+  });
+  document.getElementById("search").addEventListener("input", e => { query = e.target.value.trim(); render(); });
+  render();
+})();
+</script>
+</body>
+</html>
