@@ -197,30 +197,32 @@ a { color: inherit; }
 
 /* outlet panel */
 /* details drop down beneath the tapped tower, which sits centered in the strip of map above */
+/* details: a compact pop-up pinned next to the tapped tower, county or bubble (it follows the map as it moves) */
 .panel {
   position: absolute; z-index: 8; background: var(--panel);
-  top: var(--sheet-top); bottom: 0; left: 50%; width: min(960px, 100%);
-  border: 1px solid var(--line); border-bottom: 0; border-radius: 12px 12px 0 0;
+  top: 90px; left: 12px; width: min(380px, calc(100% - 24px)); max-height: 60%;
+  border: 1px solid var(--line); border-radius: 12px;
   display: flex; flex-direction: column;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, .5);
-  transform: translate(-50%, 0); opacity: 1; visibility: visible;
-  transition: transform .3s ease, opacity .25s ease, visibility 0s linear 0s;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, .6);
+  opacity: 1; visibility: visible;
+  transition: opacity .18s ease, visibility 0s linear 0s;
 }
-.panel.closed { transform: translate(-50%, -18px); opacity: 0; visibility: hidden; pointer-events: none; transition: transform .25s ease, opacity .2s ease, visibility 0s linear .25s; }
-.panel::before { content: ""; position: absolute; top: -9px; left: 50%; width: 16px; height: 16px; background: var(--panel); border-left: 1px solid var(--line); border-top: 1px solid var(--line); transform: translateX(-50%) rotate(45deg); }
-.panel-body .person-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); gap: 12px; }
+.panel.closed { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .15s ease, visibility 0s linear .15s; }
+.panel.offscreen { opacity: 0; pointer-events: none; }
+.panel::before { content: ""; position: absolute; top: -9px; left: var(--arrow-x, 50%); width: 16px; height: 16px; background: var(--panel); border-left: 1px solid var(--line); border-top: 1px solid var(--line); transform: translateX(-50%) rotate(45deg); }
+.panel.above::before { top: auto; bottom: -9px; transform: translateX(-50%) rotate(225deg); }
+.panel-body .person-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
 .panel-head {
-  padding-top: calc(18px + env(safe-area-inset-top, 0px)); padding-bottom: 16px;
-  padding-left: 20px; padding-right: max(20px, env(safe-area-inset-right, 0px));
+  padding: 12px 14px 10px;
   border-bottom: 1px solid var(--line); display: grid; gap: 6px; position: relative;
 }
 .panel-close {
-  position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px));
-  width: 40px; height: 40px; border-radius: 4px; border: 1px solid var(--line); background: var(--panel-2); cursor: pointer; font-size: 20px;
+  position: absolute; top: 8px; right: 8px;
+  width: 32px; height: 32px; border-radius: 4px; border: 1px solid var(--line); background: var(--panel-2); cursor: pointer; font-size: 20px;
 }
 .eyebrow { font-family: var(--font-display); font-weight: 600; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--signal); padding-right: 48px; }
 .panel.local-outlet .eyebrow { color: var(--local); }
-.panel h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 1.1; text-wrap: balance; padding-right: 48px; }
+.panel h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 19px; line-height: 1.15; text-wrap: balance; padding-right: 36px; }
 .addr { font-size: 13px; color: var(--muted); }
 .addr .pin-note { display: block; font-size: 12px; color: var(--signal); }
 .links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
@@ -230,7 +232,7 @@ a { color: inherit; }
 }
 .links a:hover { border-color: var(--signal); color: var(--signal); }
 .links a.primary { background: var(--signal); color: #10171d; border-color: var(--signal); }
-.panel-body { overflow-y: auto; flex: 1; padding-block: 18px 28px; padding-left: 20px; padding-right: max(20px, env(safe-area-inset-right, 0px)); display: grid; gap: 22px; align-content: start; }
+.panel-body { overflow-y: auto; overscroll-behavior: contain; flex: 1; min-height: 0; padding: 12px 14px 16px; display: grid; gap: 14px; align-content: start; }
 .section-title { font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 10px; color: var(--muted); }
 .person { border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); padding: 14px; display: grid; gap: 12px; }
 .person-head { display: flex; gap: 12px; align-items: center; }
@@ -275,11 +277,9 @@ a { color: inherit; }
   .milepost { width: calc(100% - 92px - max(16px, env(safe-area-inset-left, 0px))); padding: 10px 12px; }
   .mp-town { font-size: 17px; }
   .mp-hint { display: none; }
-  .panel-head { padding-top: 18px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-  .panel-body { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
-  .panel h2 { font-size: 22px; }
+  .panel h2 { font-size: 17px; }
 }
-@media (max-width: 380px) { .brand h1 { display: none; } }
+@media (max-width: 520px) { .brand h1 { display: none; } }
 </style>
 </head>
 <body>
@@ -732,7 +732,9 @@ const CONFIG = {
     const moving = Math.abs(dx) * cam.k > 0.3 || Math.abs(dy) * cam.k > 0.3 || Math.abs(dk) / target.k > 0.001;
     if (moving) { cam.x += dx * ease; cam.y += dy * ease; cam.k += dk * ease; }
     else { cam.x = target.x; cam.y = target.y; cam.k = target.k; }
-    if (moving || needsLayout) { render(); needsLayout = false; }
+    const relayout = moving || needsLayout;
+    if (relayout) { render(); needsLayout = false; }
+    if (relayout && popAnchor) placePopover();
     requestAnimationFrame(tick);
   }
 
@@ -834,13 +836,29 @@ const CONFIG = {
   let lastInputWasKeyboard = false;
   window.addEventListener("keydown", () => { lastInputWasKeyboard = true; }, true);
   window.addEventListener("pointerdown", () => { lastInputWasKeyboard = false; }, true);
-  function showPanel(isLocal) {
+  /* the pop-up stays pinned to this map point (world coordinates + the tower's sideways fan in px) */
+  let popAnchor = null;
+  function showPanel(isLocal, anchor) {
+    popAnchor = anchor || null;
     panel.classList.toggle("local-outlet", !!isLocal);
     panel.classList.remove("closed"); panel.setAttribute("aria-hidden", "false");
     const pb = document.getElementById("p-body"); pb.scrollTop = 0;
+    placePopover();
     if (lastInputWasKeyboard) document.getElementById("panel-close").focus({ preventScroll: true });
-    /* inside Wix, ask the page to scroll so the whole map and its details are on screen */
-    if (window.parent !== window) window.parent.postMessage({ source: "i55", type: "details" }, "*");
+  }
+  function placePopover() {
+    if (!popAnchor || panel.classList.contains("closed")) return;
+    const p = toScreen(popAnchor.xy, cam.k), ax = p[0] + (popAnchor.fan || 0), ay = p[1];
+    const w = Math.min(380, W - 24), left = Math.max(12, Math.min(W - w - 12, ax - w / 2));
+    const below = ay < H * 0.58;
+    const room = below ? H - ay - 26 : ay - TOP_BAR - 26;
+    panel.style.left = left + "px";
+    panel.style.maxHeight = Math.max(150, Math.round(room)) + "px";
+    if (below) { panel.style.top = Math.round(ay + 16) + "px"; panel.style.bottom = "auto"; }
+    else { panel.style.top = "auto"; panel.style.bottom = Math.round(H - ay + 16) + "px"; }
+    panel.classList.toggle("above", !below);
+    panel.style.setProperty("--arrow-x", Math.max(18, Math.min(w - 18, ax - left)) + "px");
+    panel.classList.toggle("offscreen", ax < -30 || ax > W + 30 || ay < TOP_BAR - 30 || ay > H + 30);
   }
   function selectCounty(id) {
     if (selectedCounty) selectedCounty.classList.remove("selected");
@@ -879,8 +897,8 @@ const CONFIG = {
       .filter(x => x.d < 12).sort((a, b) => a.d - b.d).slice(0, 8);
     if (near.length) body += `<div><h3 class="section-title">Corridor towns nearby</h3><div class="chips">${near.map(x => `<span>${esc(x.t.n)}</span>`).join("")}</div></div>`;
     document.getElementById("p-body").innerHTML = body;
-    showPanel(o.tier !== "major");
     centerAbovePanel(o.xy[0], o.xy[1], o.fan || 0);
+    showPanel(o.tier !== "major", { xy: o.xy, fan: o.fan || 0 });
   }
 
   function openCounty(d) {
@@ -902,7 +920,7 @@ const CONFIG = {
     if (t1.length) body += `<div><h3 class="section-title">Towns I-55 crosses</h3><div class="chips">${t1.map(t => `<span>${esc(t.n)}</span>`).join("")}</div></div>`;
     if (t2.length) body += `<div><h3 class="section-title">Within five miles</h3><div class="chips t2">${t2.map(t => `<span>${esc(t.n)}</span>`).join("")}</div></div>`;
     document.getElementById("p-body").innerHTML = body;
-    showPanel(false);
+    showPanel(false, { xy: d.centroid, fan: 0 });
     /* bring the county into view */
     const [[x0, y0], [x1, y1]] = d.bounds;
     const fit = Math.min(W / ((x1 - x0) * 1.4 || 1), H / ((y1 - y0) * 1.4 || 1));
@@ -924,12 +942,12 @@ const CONFIG = {
     document.getElementById("p-addr").textContent = "";
     document.getElementById("p-links").innerHTML = "";
     document.getElementById("p-body").innerHTML = `<div class="outlet-list">${c.m.map(o => `<button type="button" class="outlet-row ${o.tier === "major" ? "" : "local"}" data-outlet="${esc(o.id)}"><span class="badge">${esc(o.short)}</span><div><div class="o-name">${esc(o.name)}</div><div class="o-kind">${esc(o.kind)} · ${esc(o.address)}${featuredCount[o.id] ? ` · <span class="o-feat">${featuredCount[o.id]} featured</span>` : ""}</div></div></button>`).join("")}</div>`;
-    showPanel(false);
     centerAbovePanel(c.x, c.y, 0);
+    showPanel(false, { xy: [c.x, c.y], fan: 0 });
   }
 
   /* the details sheet starts this far down the screen */
-  const sheetTopPx = () => Math.round(H * (H < 560 ? 0.46 : 0.42));
+  const sheetTopPx = () => Math.round(H * (H < 560 ? 0.40 : 0.36));
   document.getElementById("app").style.setProperty("--sheet-top", "42%");
   function syncSheetTop() { document.getElementById("app").style.setProperty("--sheet-top", sheetTopPx() + "px"); }
   syncSheetTop(); window.addEventListener("resize", syncSheetTop);
@@ -941,7 +959,7 @@ const CONFIG = {
     target.y = y + (H / 2 - midY) / k;
   }
 
-  function closePanel() { panel.classList.add("closed"); panel.setAttribute("aria-hidden", "true"); stationSel.classed("active", false); selectCounty(null); }
+  function closePanel() { popAnchor = null; panel.classList.add("closed"); panel.setAttribute("aria-hidden", "true"); stationSel.classed("active", false); selectCounty(null); }
   document.getElementById("panel-close").addEventListener("click", closePanel);
   document.getElementById("p-body").addEventListener("click", e => {
     const play = e.target.closest("button[data-v]");
